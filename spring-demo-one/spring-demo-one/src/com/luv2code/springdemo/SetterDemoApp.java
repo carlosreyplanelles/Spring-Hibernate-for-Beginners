@@ -2,19 +2,17 @@ package com.luv2code.springdemo;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class HelloSpringBeans {
+public class SetterDemoApp {
 
-    public static void main(String[] args) throws Exception {
-        // load Spring config file
+    public static void main(String args[]) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        // retrieve a bean from spring container
-        Coach coach = context.getBean("coachBean", Coach.class);
-        // call workoutBeanMethod
+        FootballCoach coach = context.getBean("footballCoachBean", FootballCoach.class);
+
         System.out.println(coach.getDailyWorkout());
-        // call fortune Injected Fortune service method
         System.out.println(coach.getDaylyFortune());
-        // close context
+        System.out.println(coach.getEmail());
+        System.out.println(coach.getTeam());
+
         context.close();
     }
-
 }

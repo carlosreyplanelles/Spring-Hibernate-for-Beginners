@@ -7,10 +7,30 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:property-placeholder location="classpath:sport.properties"/>
     <!-- Define your beans here -->
-    <bean id="coachBean"
-    class = "com.luv2code.springdemo.FootballCoach">
+    <bean id="happyFortuneServiceBean"
+    class="com.luv2code.springdemo.HappyFortuneService">
     </bean>
+
+    <bean id="randomFortuneServiceBean"
+    class="com.luv2code.springdemo.RandomFortuneService">
+    </bean>
+
+    <bean id="coachBean"
+    class = "com.luv2code.springdemo.BaseballCoach">
+    <constructor-arg ref="happyFortuneServiceBean"/>
+    </bean>
+
+    <bean id = "footballCoachBean"
+    class = "com.luv2code.springdemo.FootballCoach">
+    <property name = "fortuneService" ref="randomFortuneServiceBean"/>
+    <property name ="email" value="${foo.email}"/>
+    <property name = "team" value="${foo.team}"/>
+    </bean>
+
+
+    
 </beans>
 
 

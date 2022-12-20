@@ -7,4 +7,10 @@ public class TrackCoach implements Coach {
         return "Run 10km 3 times a week";
     }
 
+    @Override
+    public String getDaylyFortune() {
+
+        return null;
+    }
+
 }
