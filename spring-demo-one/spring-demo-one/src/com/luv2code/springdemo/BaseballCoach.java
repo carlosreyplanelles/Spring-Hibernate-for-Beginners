@@ -17,4 +17,14 @@ public class BaseballCoach implements Coach {
     public String getDaylyFortune() {
         return fortuneService.getFortune();
     }
+
+    // Add init bean Method
+    public void StartrtupBeanMethod() {
+        System.out.println("Bean initzialization");
+    }
+
+    // Add destroy bean Method
+    public void destroyBeanMethod() {
+        System.out.println("Bean Destruction");
+    }
 }

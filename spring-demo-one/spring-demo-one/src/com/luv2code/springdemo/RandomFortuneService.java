@@ -1,6 +1,5 @@
 package com.luv2code.springdemo;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomFortuneService implements FortuneService {
