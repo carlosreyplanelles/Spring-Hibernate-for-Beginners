@@ -13,6 +13,7 @@ public class AnnotationDemoApp {
         // call the method from the bean
         System.out.println("TennisCoach workout: " + coach.getDailyWorkout());
         System.out.println("BasketCoach workout: " + basketCoach.getDailyWorkout());
+        System.out.println(basketCoach.getDailyFortune());
         // Close context
         context.close();
     }
