@@ -2,8 +2,13 @@
 
 https://www.udemy.com/course/spring-hibernate-tutorial/
 
-## Anotations (@)
+In order to use spring framework it has to be downloaded from:
+https://repo.spring.io/artifactory/release/org/springframework/spring/5.3.9/
 
+After it it has to be added to the build path.
+
+## Anotations (@)
+### General
 In order to enable component scan this line have to be added to xml configuration file:
 
 ```
@@ -24,6 +29,7 @@ We can pass an optional parameter with the bean name.
 public class BasketCoach implements Coach
 ```
 
+### Depency Injection
 - **@Autowired:** Used to inject dependencies automatically based on class or implemented interface. The service to be injected needs to have a bean defined.
   ####Injection types
 
@@ -152,3 +158,16 @@ public class BasketCoach implements Coach
   @Value("${foo.team}")
   private String team;
   ```
+
+  ## Bean configurations
+
+  **@Scope:** Ised to specify the configuration to be used for the bean
+    -  **singleton:** Scopes a single bean definition to a single object instance per Spring IoC container.
+    - **prototype:** Scopes a single bean definition to any number of object instances.
+    - **request:** Scopes a single bean definition to the lifecycle of a single HTTP request; that is each and every HTTP request will have its own instance of a bean created off the back of a single bean definition. Only valid in the context of a web-aware   Spring ApplicationContext.
+    - **session:** Scopes a single bean definition to the lifecycle of a HTTP Session. Only valid in the context of a web-aware Spring ApplicationContext.
+    - **global session:** Scopes a single bean definition to the lifecycle of a global HTTP Session. Typically only valid when used in a portlet context. Only valid in the context of a web-aware Spring ApplicationContext.
+    [Reference](https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch04s04.html)
+  **@PostConstruct:** Process performed after constructing the object
+  **@PreDestroy:** Process performed before the object is destroyed
+  The function passed to this annotations can have any name and return any type (although void is the most common) but should be no-args function.

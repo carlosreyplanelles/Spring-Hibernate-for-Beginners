@@ -66,6 +66,7 @@
     "spring-demo-annotations\\lib\\spring-webmvc-5.3.9-sources.jar",
     "spring-demo-annotations\\lib\\spring-websocket-5.3.9.jar",
     "spring-demo-annotations\\lib\\spring-websocket-5.3.9-javadoc.jar",
-    "spring-demo-annotations\\lib\\spring-websocket-5.3.9-sources.jar"
+    "spring-demo-annotations\\lib\\spring-websocket-5.3.9-sources.jar",
+    "spring-demo-annotations\\lib\\javax.annotation-api-1.3.2.jar"
   ]
 }
