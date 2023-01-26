@@ -171,3 +171,15 @@ public class BasketCoach implements Coach
   **@PostConstruct:** Process performed after constructing the object
   **@PreDestroy:** Process performed before the object is destroyed
   The function passed to this annotations can have any name and return any type (although void is the most common) but should be no-args function.
+
+  ____
+
+  # Configuration using Java Code (no XML)
+
+  ## Annotations(@)
+    - **@Configuration:** Used to mark that the class is used to define a configuration for the app.
+    - **@ComponentScan("[package]"):** Used to indicate to the app which context will be scanned for the annotations. Additionally, the package which will be scanned can be indicated as a parameter referencing the compiled object(.class)
+    - **@Bean**: Use to define beans inside a configuration file.
+
+
+
