@@ -180,6 +180,216 @@ public class BasketCoach implements Coach
     - **@Configuration:** Used to mark that the class is used to define a configuration for the app.
     - **@ComponentScan("[package]"):** Used to indicate to the app which context will be scanned for the annotations. Additionally, the package which will be scanned can be indicated as a parameter referencing the compiled object(.class)
     - **@Bean**: Use to define beans inside a configuration file.
+  
+  ____
+
+  # Spring MVC
+
+  ## Initial Config
+
+  1 - Configure the application so it gets all the components and build the route to the views files.
 
 
+*MVC-config.xml*
+  ```
+  <?xml version="1.0" encoding="UTF-8"?>
+  <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd
+    	http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+	<!-- Step 3: Add support for component scanning -->
+	<context:component-scan base-package="com.luv2code.springdemo" />
+
+	<!-- Step 4: Add support for conversion, formatting and validation support -->
+	<mvc:annotation-driven/>
+
+	<!-- Step 5: Define Spring MVC view resolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+</beans>
+
+  ```
+
+2 - Configure the disoatcher servlet.
+
+  *web.xml*
+  ```
+  <?xml version="1.0" encoding="UTF-8"?>
+  <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+
+	<display-name>spring-mvc-demo</display-name>
+
+	<absolute-ordering />
+
+	<!-- Spring MVC Configs -->
+
+	<!-- Step 1: Configure Spring MVC Dispatcher Servlet -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc-demo-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Step 2: Set up URL mapping for Spring MVC Dispatcher Servlet -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+</web-app>
+  ```
+
+This files have to be stored on the WEB-INF under Content directory.
+
+## Creating Views and Controllers
+
+1 - Given the route configured in our MVC-config.xml fil example, The views are being retrieved from the view directory under WEB-INF
+```
+<property name="prefix" value="/WEB-INF/view/" />
+```
+
+and the extensions of the views file is jsp:
+
+```
+<property name="suffix" value=".jsp" />
+```
+
+2 - Between this prefix and suffix the name of the file will be added. We will have to implement a controller that returns the name of the file and assign it to  a mapping using the **@RequestMapping** annotation on the corresponding method:
+```
+@Controller
+public class HomeController {
+	
+	@RequestMapping("/")
+	public String showPage() {
+		return "main-menu";
+	}
+
+}
+```
+
+this will return the information contained on the file */WEB-INF/view/main-menu.jsp*
+
+## Adding parameters to the request
+
+In order to add parameters to the request we will have to 
+1- create a form and return his values:
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Spring MVC - demo - Form demo</title>
+    </head>
+
+    <body>
+        <h2>Hello Form</h2>
+        <form action="processFormShout" method="GET">
+            <input type="text" name="studentName" />
+            <input type="submit">
+        </form>
+    </body>
+
+    </html>
+```
+We will ise the attribute name inside the input file to define the parameter name that will be added to the URL.
+
+2- Accesss parameters and show them in the frontpage:
+
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Insert title here</title>
+    </head>
+
+    <body>
+        <h2>Hello World!</h2>
+
+        <div>
+            Student name: ${param.studentName}
+        </div>
+    </body>
+
+    </html>
+```
+
+We will use ${param.\[param-name\]} to access to the parameters in the URL.
+
+## Adding parameters to the model
+
+1- Create a method that recieves the request and the model on the call and adds the attribute to the model
+```
+@RequestMapping("/processFormShout")
+	public String processFormShout(HttpServletRequest req, Model model) {
+		
+		String name = req.getParameter("studentName");
+		
+		String msg = "YO! " + name.toUpperCase(); 
+		
+		model.addAttribute("msg", msg);
+		
+		return "helloWorld";
+	}
+```
+
+2- Access to the attribute in the front page.
+```
+<div>
+  The message: ${msg}
+</div>
+```
+With this request we are accessing to the object msg from the model.
+
+## Forms
+When using jsp pages there are some specific elements that can be used for the form fields.
+
+To enable the compiler to understand this special form fields the library have to be added to the html file:
+
+```
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+```
+After adding this library this form components can be used by adding the prefix:
+
+```
+<form:input path="firstName"/>
+```
+### inputs
+```
+form:form action="confirmation" modelAttribute="student">
+		<div>
+		First Name: <form:input path="firstName"/>
+		</div>
+    ...
+```
+**modelAttribute:** represent the object that we will assign values when submitting this form
+**path:** indicates which field form the model object have to be used to store the information provided in the input.
+
+After submitting the form information annotation **@ModelAttribute** can be used to access to it (the parameter passed to the annotation has to match with the name used in the **modelAttribute**):
+
+```
+public String processForm(@ModelAttribute("student") Student student)
+```

@@ -8,8 +8,16 @@
 </head>
 <body>
 <h2>Spring MVC Demo - Home Page</h2>
-<div>
-<a href="helloForm"> Hello World form</a>
-</div>
+
+<ul>
+	<li>
+		<a href="hello/helloForm"> Hello World form</a>
+	</li>
+	<li>
+		<a href="student/form"> Student registration</a>
+	</li>
+</ul>
+
+
 </body>
 </html>
