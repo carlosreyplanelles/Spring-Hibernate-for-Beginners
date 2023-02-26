@@ -19,7 +19,7 @@
 		<div>
 		Country:
 		<form:select path="country">
-			<form:options items="${student.countries}"/>
+			<form:options items="${countries}"/>
 		</form:select>
 		</div>
 		Programming languages:

@@ -393,3 +393,92 @@ After submitting the form information annotation **@ModelAttribute** can be used
 ```
 public String processForm(@ModelAttribute("student") Student student)
 ```
+### Checkboxes and Radio Buttons
+
+For checkboes and radiobuttions we will use annontations forms:checkbox and form:radiobutton respetively.
+
+*radioButton:*
+``` 
+<div>
+			<form:radiobuttons path="favoriteLanguage" items="${student.favoriteLanguageOptions}"  />
+	</div>
+```
+
+The path value will reresent the field of the modelAttribute defined in the form which will store the information.
+The plural from this components can be used in the label (i.e.:form:radiobuttons) to indicate the elements that are in this group of the form through a stored map or properties file.
+
+#### Class map
+
+1. **Create the Map** in the Object class file and populate in the no-Args constructor:
+    *src/spring.luv2code.springdemo.mvc/Student.java:*
+    ```
+    private LinkedHashMap<String, String> favoriteLanguageOptions;
+    public Student() {
+		
+		favoriteLanguageOptions = new LinkedHashMap<>();
+		favoriteLanguageOptions.put("Java", "Java");
+		favoriteLanguageOptions.put("C#", "C#");
+		favoriteLanguageOptions.put("Python", "Python");
+		...
+    ```
+2. **Show it** in the form:
+    *WEB-INF/view/student-form.jsp:*
+    ```
+    <div>
+			<form:radiobuttons path="favoriteLanguage" items="${student.favoriteLanguageOptions}"  />
+		</div>
+    ```
+#### Properties file
+
+1.  **Create a properties file.**
+    *WEB-INF/countries.properties:*
+    ```
+    BR=Brazil 
+    FR=France 
+    CO=Colombia 
+    IN=India
+    ```
+2. **Update spring config file** and create ban reverencing the properties file.
+    *WEB-INF/spring-servlet.xml*
+    ```
+        <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans" 
+            xmlns:context="http://www.springframework.org/schema/context" 
+            xmlns:mvc="http://www.springframework.org/schema/mvc" 
+            xmlns:util="http://www.springframework.org/schema/util" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xsi:schemaLocation="
+                http://www.springframework.org/schema/beans     
+                http://www.springframework.org/schema/beans/spring-beans.xsd     
+                http://www.springframework.org/schema/context     
+                http://www.springframework.org/schema/context/spring-context.xsd     
+                http://www.springframework.org/schema/mvc         
+                http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+                http://www.springframework.org/schema/util     
+                http://www.springframework.org/schema/util/spring-util.xsd">
+
+                ...
+
+                <util:properties  id="countries" location="classpath:../countries.properties" />
+                ...
+    ```
+3. **Inject the bean** and **Add the attribute to the model**
+  *src/spring.luv2code.springdemo.mvc/StudentController.java:*
+    ```
+        @Value("#{counties}") 
+        private Map<String, String> countries;
+
+        public String showForm(Model model) {
+          ...
+          model.addAttribute("countries", countries); 
+          ...
+    ```
+4. **Access to the injected properties file**
+*src/spring.luv2code.springdemo.mvc/Student-form.java:*
+    ```
+    ...
+    <form:select path="country"> 
+      <form:options items="${countries}" />
+    </form:select>
+    ...
+    ```
