@@ -16,6 +16,10 @@
 	<li>
 		<a href="student/form"> Student registration</a>
 	</li>
+	<li>
+		<a href="customer/form"> Customer validation</a>
+	</li>
+	
 </ul>
 
 

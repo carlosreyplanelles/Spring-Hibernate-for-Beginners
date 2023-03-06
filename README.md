@@ -410,6 +410,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
 #### Class map
 
 1. **Create the Map** in the Object class file and populate in the no-Args constructor:
+    
     *src/spring.luv2code.springdemo.mvc/Student.java:*
     ```
     private LinkedHashMap<String, String> favoriteLanguageOptions;
@@ -422,6 +423,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
 		...
     ```
 2. **Show it** in the form:
+    
     *WEB-INF/view/student-form.jsp:*
     ```
     <div>
@@ -431,6 +433,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
 #### Properties file
 
 1.  **Create a properties file.**
+    
     *WEB-INF/countries.properties:*
     ```
     BR=Brazil 
@@ -439,6 +442,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
     IN=India
     ```
 2. **Update spring config file** and create ban reverencing the properties file.
+    
     *WEB-INF/spring-servlet.xml*
     ```
         <?xml version="1.0" encoding="UTF-8"?>
@@ -463,6 +467,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
                 ...
     ```
 3. **Inject the bean** and **Add the attribute to the model**
+  
   *src/spring.luv2code.springdemo.mvc/StudentController.java:*
     ```
         @Value("#{counties}") 
@@ -474,6 +479,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
           ...
     ```
 4. **Access to the injected properties file**
+
 *src/spring.luv2code.springdemo.mvc/Student-form.java:*
     ```
     ...
@@ -482,3 +488,103 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
     </form:select>
     ...
     ```
+
+### Validations
+
+For configuring validations hibernate validator libraries must be added. 
+First, the validator library have to be downloaded from [hiernate.org](https://hibernate.org/validator)
+
+[Validations basic guide](https://www.baeldung.com/javax-validation)
+[Validators doc](https://docs.oracle.com/javaee/7/api/javax/validation/constraints/package-summary.html)
+
+1. Create a model and add the validations that has to be applied.
+
+*src/spring.luv2code.springdemo.mvc/Customer.java:*
+
+```
+package com.luv2code.springdemo.mvc;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+public class Customer {
+	
+	private String firstName;
+	
+	@NotNull(message="required field")
+	@Size(min=1, message="required field")
+	private String lastName;
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+}
+```
+This model is validating that the lastName property has a value.
+
+2. Create the form to add customer info:
+```
+<form:form action="validate" modelAttribute="customer" >
+		<div>
+			First name: <form:input path="firstName"/>
+		</div>
+		<div>
+			Last name: <form:input path="lastName"/>
+			<form:errors path="lastName" class="error"/>
+		</div>
+		<input type="submit" value="Submit"/>
+	</form:form>
+```
+form:errors is used to retrieve any error message relate to the customer.
+
+3. Create the controller to handle the validation:
+
+*src/spring.luv2code.springdemo.mvc/CustomerController.java:*
+
+```
+package com.luv2code.springdemo.mvc;
+
+import javax.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/customer")
+public class CustomerController {
+	
+	
+	@RequestMapping("/form")
+	public String getForm(Model model) {
+		Customer c = new Customer();
+		model.addAttribute("customer", c);
+		return "customer-form";
+	}
+	
+	
+	@RequestMapping("/validate")
+	public String validateForm(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors()) {
+			return "customer-form";
+		} else {
+			return "customer-confirmation";
+		}
+	}
+
+}
+```
+Annotation **@Valid** in the validateForm method signature triggers the validation for the form. In order to confirm that the customer information in the model is valid, method hasErrors() for bindingResult will contain all the validation errors. if there's any error on the bindingResult it will return to the form when submitting it showing the current errors. If there's no error will redirect to the success page.
