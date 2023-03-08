@@ -31,7 +31,7 @@ public class BasketCoach implements Coach
 
 ### Depency Injection
 - **@Autowired:** Used to inject dependencies automatically based on class or implemented interface. The service to be injected needs to have a bean defined.
-  ####Injection types
+  #### Injection types
 
   - **Constructor:**
 
@@ -69,6 +69,7 @@ public class BasketCoach implements Coach
     ```
 
   - **Setter:**
+  
     1. Create setter method
     2. Configure dependency injection with @Autowired annotation
     ```
@@ -159,18 +160,18 @@ public class BasketCoach implements Coach
   private String team;
   ```
 
-  ## Bean configurations
+# Bean configurations
 
-  **@Scope:** Ised to specify the configuration to be used for the bean
-    -  **singleton:** Scopes a single bean definition to a single object instance per Spring IoC container.
-    - **prototype:** Scopes a single bean definition to any number of object instances.
-    - **request:** Scopes a single bean definition to the lifecycle of a single HTTP request; that is each and every HTTP request will have its own instance of a bean created off the back of a single bean definition. Only valid in the context of a web-aware   Spring ApplicationContext.
-    - **session:** Scopes a single bean definition to the lifecycle of a HTTP Session. Only valid in the context of a web-aware Spring ApplicationContext.
-    - **global session:** Scopes a single bean definition to the lifecycle of a global HTTP Session. Typically only valid when used in a portlet context. Only valid in the context of a web-aware Spring ApplicationContext.
-    [Reference](https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch04s04.html)
-  **@PostConstruct:** Process performed after constructing the object
-  **@PreDestroy:** Process performed before the object is destroyed
-  The function passed to this annotations can have any name and return any type (although void is the most common) but should be no-args function.
+**@Scope:** specifies the configuration to be used for the bean
+  -  **singleton:** Scopes a single bean definition to a single object instance per Spring IoC container.
+  - **prototype:** Scopes a single bean definition to any number of object instances.
+  - **request:** Scopes a single bean definition to the lifecycle of a single HTTP request; that is each and every HTTP request will have its own instance of a bean created off the back of a single bean definition. Only valid in the context of a web-aware   Spring ApplicationContext.
+  - **session:** Scopes a single bean definition to the lifecycle of a HTTP Session. Only valid in the context of a web-aware Spring ApplicationContext.
+  - **global session:** Scopes a single bean definition to the lifecycle of a global HTTP Session. Typically only valid when used in a portlet context. Only valid in the context of a web-aware Spring ApplicationContext.
+  [Scopes documentation](https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch04s04.html)
+**@PostConstruct:** Process performed after constructing the object
+**@PreDestroy:** Process performed before the object is destroyed
+The function passed to this annotations can have any name and return any type (although void is the most common) but should be no-args function.
 
   ____
 
@@ -183,9 +184,9 @@ public class BasketCoach implements Coach
   
   ____
 
-  # Spring MVC
+  ## Spring MVC
 
-  ## Initial Config
+  ### Initial Config
 
   1 - Configure the application so it gets all the components and build the route to the views files.
 
@@ -222,7 +223,9 @@ public class BasketCoach implements Coach
 
   ```
 
-2 - Configure the disoatcher servlet.
+
+
+2 - Configure the dispatcher servlet.
 
   *web.xml*
   ```
@@ -260,9 +263,9 @@ public class BasketCoach implements Coach
 
 This files have to be stored on the WEB-INF under Content directory.
 
-## Creating Views and Controllers
 
-1 - Given the route configured in our MVC-config.xml fil example, The views are being retrieved from the view directory under WEB-INF
+
+Given the route configured in our MVC-config.xml fil example, The views are being retrieved from the view directory under WEB-INF
 ```
 <property name="prefix" value="/WEB-INF/view/" />
 ```
@@ -273,7 +276,8 @@ and the extensions of the views file is jsp:
 <property name="suffix" value=".jsp" />
 ```
 
-2 - Between this prefix and suffix the name of the file will be added. We will have to implement a controller that returns the name of the file and assign it to  a mapping using the **@RequestMapping** annotation on the corresponding method:
+### Views and Controllers
+Between this prefix and suffix the name of the file will be added. We will have to implement a controller that returns the name of the file and assign it to  a mapping using the **@RequestMapping** annotation on the corresponding method:
 ```
 @Controller
 public class HomeController {
@@ -288,9 +292,8 @@ public class HomeController {
 
 this will return the information contained on the file */WEB-INF/view/main-menu.jsp*
 
-## Adding parameters to the request
+### Adding parameters to the request
 
-In order to add parameters to the request we will have to 
 1- create a form and return his values:
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -312,9 +315,9 @@ In order to add parameters to the request we will have to
 
     </html>
 ```
-We will ise the attribute name inside the input file to define the parameter name that will be added to the URL.
+Use the attribute name inside the input file to define the parameter *name* that will be added to the URL.
 
-2- Accesss parameters and show them in the frontpage:
+2- Accesss parameters and show them in the interface
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -339,9 +342,12 @@ We will ise the attribute name inside the input file to define the parameter nam
 
 We will use ${param.\[param-name\]} to access to the parameters in the URL.
 
-## Adding parameters to the model
+### Adding parameters to the model
 
 1- Create a method that recieves the request and the model on the call and adds the attribute to the model
+
+*src/com/luv2code/springdemo/mvc/HelloWorldController.java*
+
 ```
 @RequestMapping("/processFormShout")
 	public String processFormShout(HttpServletRequest req, Model model) {
@@ -356,7 +362,10 @@ We will use ${param.\[param-name\]} to access to the parameters in the URL.
 	}
 ```
 
-2- Access to the attribute in the front page.
+2- Access to the attribute in the interface.
+
+*/webContent/WEB-INF/view/helloWorld.jsp*
+
 ```
 <div>
   The message: ${msg}
@@ -364,7 +373,7 @@ We will use ${param.\[param-name\]} to access to the parameters in the URL.
 ```
 With this request we are accessing to the object msg from the model.
 
-## Forms
+### Forms
 When using jsp pages there are some specific elements that can be used for the form fields.
 
 To enable the compiler to understand this special form fields the library have to be added to the html file:
@@ -372,12 +381,15 @@ To enable the compiler to understand this special form fields the library have t
 ```
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 ```
-After adding this library this form components can be used by adding the prefix:
+After adding this library this form components can be used by adding the prefix *form:*:
 
 ```
 <form:input path="firstName"/>
 ```
-### inputs
+#### inputs
+
+*/webContent/WEB-INF/view/student-form.jsp*
+
 ```
 form:form action="confirmation" modelAttribute="student">
 		<div>
@@ -385,15 +397,18 @@ form:form action="confirmation" modelAttribute="student">
 		</div>
     ...
 ```
+
 **modelAttribute:** represent the object that we will assign values when submitting this form
-**path:** indicates which field form the model object have to be used to store the information provided in the input.
+**path:** indicates which field form the modelAttrubite object have to be used to store the information provided in the input.
 
 After submitting the form information annotation **@ModelAttribute** can be used to access to it (the parameter passed to the annotation has to match with the name used in the **modelAttribute**):
+
+*src/com/luv2code/springdemo/mvc/StudentController.java*
 
 ```
 public String processForm(@ModelAttribute("student") Student student)
 ```
-### Checkboxes and Radio Buttons
+#### Checkboxes and Radio Buttons
 
 For checkboes and radiobuttions we will use annontations forms:checkbox and form:radiobutton respetively.
 
@@ -407,7 +422,7 @@ For checkboes and radiobuttions we will use annontations forms:checkbox and form
 The path value will reresent the field of the modelAttribute defined in the form which will store the information.
 The plural from this components can be used in the label (i.e.:form:radiobuttons) to indicate the elements that are in this group of the form through a stored map or properties file.
 
-#### Class map
+##### Class map
 
 1. **Create the Map** in the Object class file and populate in the no-Args constructor:
     
@@ -422,7 +437,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
 		favoriteLanguageOptions.put("Python", "Python");
 		...
     ```
-2. **Show it** in the form:
+2. **Retrieve it** in the form:
     
     *WEB-INF/view/student-form.jsp:*
     ```
@@ -430,7 +445,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
 			<form:radiobuttons path="favoriteLanguage" items="${student.favoriteLanguageOptions}"  />
 		</div>
     ```
-#### Properties file
+##### Properties file
 
 1.  **Create a properties file.**
     
@@ -441,9 +456,11 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
     CO=Colombia 
     IN=India
     ```
+
 2. **Update spring config file** and create ban reverencing the properties file.
     
     *WEB-INF/spring-servlet.xml*
+
     ```
         <?xml version="1.0" encoding="UTF-8"?>
     <beans xmlns="http://www.springframework.org/schema/beans" 
@@ -469,6 +486,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
 3. **Inject the bean** and **Add the attribute to the model**
   
   *src/spring.luv2code.springdemo.mvc/StudentController.java:*
+
     ```
         @Value("#{counties}") 
         private Map<String, String> countries;
@@ -489,7 +507,7 @@ The plural from this components can be used in the label (i.e.:form:radiobuttons
     ...
     ```
 
-### Validations
+#### Validations
 
 For configuring validations hibernate validator libraries must be added. 
 First, the validator library have to be downloaded from [hiernate.org](https://hibernate.org/validator)
@@ -511,6 +529,7 @@ public class Customer {
 	
 	private String firstName;
 	
+  //lastName field is required Validations.
 	@NotNull(message="required field")
 	@Size(min=1, message="required field")
 	private String lastName;
@@ -530,9 +549,9 @@ public class Customer {
 	
 }
 ```
-This model is validating that the lastName property has a value.
 
-2. Create the form to add customer info:
+2. Create the form to add customer info
+
 ```
 <form:form action="validate" modelAttribute="customer" >
 		<div>
@@ -565,7 +584,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-	
+
+  //Trim all the trailing and leading spaces
+  @InitBinder
+	public void trimSpaces(WebDataBinder dataBinder) {
+    //stringTrimEditor(true) => if all the elements are spaces returns a null object.
+		StringTrimmerEditor ste = new StringTrimmerEditor(true);
+		dataBinder.registerCustomEditor(String.class, ste);
+	}
 	
 	@RequestMapping("/form")
 	public String getForm(Model model) {
@@ -588,3 +614,84 @@ public class CustomerController {
 }
 ```
 Annotation **@Valid** in the validateForm method signature triggers the validation for the form. In order to confirm that the customer information in the model is valid, method hasErrors() for bindingResult will contain all the validation errors. if there's any error on the bindingResult it will return to the form when submitting it showing the current errors. If there's no error will redirect to the success page.
+
+Annotation **@InitBinder** is used to indicate the preprocessing that will be applied prior to validation.
+
+Annotation **@Pattern** is used touse a regular expression to verify the structure of an string based on a regular expression(regexp)
+
+##### Custom Validation Methods
+
+1. Define the new annotation implementation:
+
+*src/com/luv2code/springdemo/mvc/validation/CourseValidation*
+
+```
+@Constraint(validatedBy = CourseCodeConstraintValidator.class)
+@Target({ElementType.METHOD, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CourseCode {
+
+	public String value() default "LUV";
+	public String message() default "Course code must start with LUV";
+	
+	//define the groups of errors that are related to this Validation annotation
+	public Class<?>[] groups() default {};
+	
+	//define payloads
+	public Class<? extends Payload>[] payload() default {};
+}
+```
+- **@Constraint:** indicates the class that will handle this annotation.
+- **@Target:** Indicates which levels this annotation can be applied.
+- **@Retention:** How the annotation have to be cached and handled by the JVM
+- **@interface:** Is used to declare a new annotation type
+
+2. Define the handler class implementation for this annotation.
+
+*src/com/luv2code/springdemo/mvc/validation/CourseCodeConstraintValidator.java*
+
+```
+public class CourseCodeConstraintValidator implements ConstraintValidator<CourseCode, String>{
+	
+	
+	private String coursePrefix;
+	@Override
+	public void initialize(CourseCode courseCode) {
+		// TODO Auto-generated method stub
+		coursePrefix = courseCode.value();
+	}
+
+	@Override
+	public boolean isValid(String userCourse, ConstraintValidatorContext arg1) {
+		boolean result = true;
+		
+		if (userCourse != null) {
+			result = userCourse.startsWith(coursePrefix);
+		}
+		return result;
+	}
+  ```
+Method **isValid** will be override in order to define the condition which make the element under this annotation to be valid.
+
+3. Use the new annotation. the name will match with the @interface created.
+
+### Custom Error messages
+
+*src/resources/message.properties*
+
+```
+TypeMismatch.customer.freePasses = Invalid number
+````
+The identifier to be used for the error messages can be found in the bindingResults object errors List.
+
+*mvc servlet config file (spring-mvc-demo-servlet.xml)*
+
+```
+<!-- Load custom messages -->
+	<bean id="messageSource" 
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames" value= "resources/messages"/>	
+	</bean>
+
+```
+

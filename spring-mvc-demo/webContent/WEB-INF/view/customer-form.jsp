@@ -21,6 +21,19 @@
 			Last name: <form:input path="lastName"/>
 			<form:errors path="lastName" class="error"/>
 		</div>
+		<div>
+			FreePasses: <form:input type="number" path="freePasses"/>
+			<form:errors path="freePasses" class="error"/>
+		</div>
+		<div>
+			Postal code: <form:input path="postalCode"/>
+			<form:errors path="postalCode" class="error"/>
+		</div>
+		<div>
+			Course code: <form:input path="courseCode"/>
+			<form:errors path="courseCode" class="error"/>
+		</div>
+		
 		<input type="submit" value="Submit"/>
 	</form:form>
 
