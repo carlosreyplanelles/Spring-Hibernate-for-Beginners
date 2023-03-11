@@ -677,11 +677,12 @@ Method **isValid** will be override in order to define the condition which make 
 
 ### Custom Error messages
 
+
 *src/resources/message.properties*
 
 ```
 TypeMismatch.customer.freePasses = Invalid number
-````
+```
 The identifier to be used for the error messages can be found in the bindingResults object errors List.
 
 *mvc servlet config file (spring-mvc-demo-servlet.xml)*
@@ -694,4 +695,136 @@ The identifier to be used for the error messages can be found in the bindingResu
 	</bean>
 
 ```
+
+## Hibernate
+
+### Initial Configuration
+
+Requirements:
+- Use Java 8
+- Install [MySql](https://dev.mysql.com/downloads/windows/installer/8.0.html)
+- Download the [Hibernate library](https://sourceforge.net/projects/hibernate/files/hibernate-orm/5.6.5.Final/hibernate-release-5.6.5.Final.zip/download)
+- Download the [Connector/J](https://dev.mysql.com/downloads/connector/j/) jar file
+
+---
+
+1. Copy all the required libs into the project lib directory (lib/required) from the hibernate library and the Connector/J .jar file.
+2. Add the libs to the project classpath.
+
+### Configuring JDBC connection
+
+*src/hibernate.cfg.xml*
+
+```
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- JDBC Database connection settings -->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/hb_student_tracker?useSSL=false&amp;serverTimezone=UTC</property>
+        <property name="connection.username">hbstudent</property>
+        <property name="connection.password">hbstudent</property>
+
+        <!-- JDBC connection pool settings ... using built-in test pool -->
+        <property name="connection.pool_size">1</property>
+
+        <!-- Select our SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Echo the SQL to stdout -->
+        <property name="show_sql">true</property>
+
+		<!-- Set the current session context -->
+		<property name="current_session_context_class">thread</property>
+ 
+    </session-factory>
+
+</hibernate-configuration>
+```
+
+
+
+
+*src/com/luv2code/hibernate/demo/entity/Student.java*
+
+```
+@Entity
+@Table(name="student")
+public class Student {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+	
+	@Column(name="first_name")
+	private String firstName;
+	
+	@Column(name="last_name")
+	private String lastName;
+	
+	@Column(name="email")
+	private String email;
+
+	public Student() {}
+	
+	public Student(String firstName, String lastName, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+  /*GETTERS AND SETTERS*/
+  @Override
+	public String toString() {
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+	}
+
+```
+
+**@Entity** Indicates this class represents a table in the database. If the class name and the table name are the same it it will connect both models automatically.
+**@Table** Used to define the name of the table in the database to be related.Optional
+**@Column** Defines the name of the column in the database that is stored in the following object.
+
+
+*src/com/luv2code/hibernate/demo/readStudentDemo.java*
+
+```
+//Create session Factory
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Student.class).
+				buildSessionFactory();
+		
+		//Retrieve the session from the factory
+		Session session = factory.getCurrentSession();
+
+		try {
+			//create a Student object
+			Student newStudent = new Student ("Jhon", "Doe", "jhon@luv2code.com");
+			
+			//Start a transaction
+			session.beginTransaction();
+			
+			//save the student
+			session.save(newStudent);
+			
+			//commit the transaction
+			session.getTransaction().commit();
+			
+		} finally {
+			
+			factory.close();
+		}
+```
+
+*NOTE: DEFAULT CONFIGURATION FILE NAME: hibernate.cfg.xml (NO NEED TO SPECIFY THE NAME)*
+The SessionFactory is a thread safe object and used by all the threads of an application. A Session is used to get a physical connection with a database.
+
+
 
