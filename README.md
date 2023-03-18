@@ -7,6 +7,7 @@ https://repo.spring.io/artifactory/release/org/springframework/spring/5.3.9/
 
 After it it has to be added to the build path.
 
+![image](https://simg.nicepng.com/png/small/31-314820_logo-spring-spring-framework-logo-svg.png)
 ## Anotations (@)
 ### General
 In order to enable component scan this line have to be added to xml configuration file:
@@ -798,7 +799,7 @@ public class Student {
 *NOTE: IF CONFIGURATION FILE NAMEIS "hibernate.cfg.xml" ThHERE'S NO NEED TO SPECIFY IT*
 The SessionFactory is a thread safe object and used by all the threads of an application. A Session is used to get a physical connection with a database.
 
-## Spring Boot
+![image](https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/9995591c43c050fbfc25beacd8db1cc3d6eb7b75-600x315.png)
 
 ### Starters
 Starters are groups of dependencies used to reduce the size of the pom file and make it easier to manage.
@@ -816,3 +817,6 @@ Starters are groups of dependencies used to reduce the size of the pom file and 
 ### Server Configuration
 Spring boot server can be configured through the properties file of the project
 [Common properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties)
+
+
+### Dependency injection
