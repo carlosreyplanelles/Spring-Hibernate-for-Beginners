@@ -873,7 +873,7 @@ Process:
 
   Create the setter method in the **Controller** and annotate it with the **@Autowired**
 
-  [src/main/java/com/luv2code/springcoredemo/rest/demoController.java]()
+  [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/03-setter-injection/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
   ```
   public class demoController {
 
@@ -884,9 +884,11 @@ Process:
         demoCoach = coach;
     }
     ...
-    ```   
+    ```
+#### Field Injection   
+  - Not recommended
+  - Not unit testing friendly.
   
-
 
 
 
