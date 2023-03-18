@@ -70,5 +70,6 @@
 	<classpathentry kind="lib" path="spring-demo-annotations/spring-demo-annotations/lib/spring-websocket-5.3.9-javadoc.jar"/>
 	<classpathentry kind="lib" path="spring-demo-annotations/spring-demo-annotations/lib/spring-websocket-5.3.9-sources.jar"/>
 	<classpathentry kind="lib" path="spring-demo-annotations/spring-demo-annotations/lib/spring-websocket-5.3.9.jar"/>
+	<classpathentry kind="src" path="mycoolapp/src/main/java/com/luv2code/springboot/demo/mycoolapp"/>
 	<classpathentry kind="output" path="spring-demo-annotations/spring-demo-annotations/bin"/>
 </classpath>

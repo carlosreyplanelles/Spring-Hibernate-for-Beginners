@@ -173,16 +173,13 @@ public class BasketCoach implements Coach
 **@PreDestroy:** Process performed before the object is destroyed
 The function passed to this annotations can have any name and return any type (although void is the most common) but should be no-args function.
 
-  ____
 
-  # Configuration using Java Code (no XML)
+# Configuration using Java Code (no XML)
 
   ## Annotations(@)
-    - **@Configuration:** Used to mark that the class is used to define a configuration for the app.
-    - **@ComponentScan("[package]"):** Used to indicate to the app which context will be scanned for the annotations. Additionally, the package which will be scanned can be indicated as a parameter referencing the compiled object(.class)
-    - **@Bean**: Use to define beans inside a configuration file.
-  
-  ____
+  - **@Configuration:** Used to mark that the class is used to define a configuration for the app.
+  - **@ComponentScan("[package]"):** Used to indicate to the app which context will be scanned for the annotations. Additionally, the package which will be scanned can be indicated as a parameter referencing the compiled object(.class)
+  - **@Bean**: Use to define beans inside a configuration file.
 
   ## Spring MVC
 
@@ -705,8 +702,7 @@ Requirements:
 - Install [MySql](https://dev.mysql.com/downloads/windows/installer/8.0.html)
 - Download the [Hibernate library](https://sourceforge.net/projects/hibernate/files/hibernate-orm/5.6.5.Final/hibernate-release-5.6.5.Final.zip/download)
 - Download the [Connector/J](https://dev.mysql.com/downloads/connector/j/) jar file
-
----
+____
 
 1. Copy all the required libs into the project lib directory (lib/required) from the hibernate library and the Connector/J .jar file.
 2. Add the libs to the project classpath.
@@ -792,39 +788,31 @@ public class Student {
 **@Column** Defines the name of the column in the database that is stored in the following object.
 
 
-*src/com/luv2code/hibernate/demo/readStudentDemo.java*
+### CRUD
 
-```
-//Create session Factory
-		SessionFactory factory = new Configuration()
-				.configure("hibernate.cfg.xml")
-				.addAnnotatedClass(Student.class).
-				buildSessionFactory();
-		
-		//Retrieve the session from the factory
-		Session session = factory.getCurrentSession();
+[Create](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/createEmployeeDemo.java)
+[Read](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/readEmployeeDemo.java)
+[Update](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/updateEmployeeDemo.java)
+[Delete](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/deleteEmployeeDemo.java)
 
-		try {
-			//create a Student object
-			Student newStudent = new Student ("Jhon", "Doe", "jhon@luv2code.com");
-			
-			//Start a transaction
-			session.beginTransaction();
-			
-			//save the student
-			session.save(newStudent);
-			
-			//commit the transaction
-			session.getTransaction().commit();
-			
-		} finally {
-			
-			factory.close();
-		}
-```
-
-*NOTE: DEFAULT CONFIGURATION FILE NAME: hibernate.cfg.xml (NO NEED TO SPECIFY THE NAME)*
+*NOTE: IF CONFIGURATION FILE NAMEIS "hibernate.cfg.xml" ThHERE'S NO NEED TO SPECIFY IT*
 The SessionFactory is a thread safe object and used by all the threads of an application. A Session is used to get a physical connection with a database.
 
+## Spring Boot
+
+### Starters
+Starters are groups of dependencies used to reduce the size of the pom file and make it easier to manage.
+
+[Starters Official Doc](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using.build-systems.starters)
+
+  - **Actuator:** Actuator dependency provides of some endpoints to track the applications activity( endpoints, status of the app...)
+      [Actuator Official Doc](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator)
+
+  - **Security:** Allows to limit the access to specific endpoints and external resources.
+  -  **Spring Boot Logging:** Logging systems configuration based on the pakage or to the whole app.
+      [Loggin official doc](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging)
 
 
+### Server Configuration
+Spring boot server can be configured through the properties file of the project
+[Common properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties)
