@@ -7,7 +7,6 @@ https://repo.spring.io/artifactory/release/org/springframework/spring/5.3.9/
 
 After it it has to be added to the build path.
 
-![image](https://simg.nicepng.com/png/small/31-314820_logo-spring-spring-framework-logo-svg.png)
 ## Anotations (@)
 ### General
 In order to enable component scan this line have to be added to xml configuration file:
@@ -791,17 +790,17 @@ public class Student {
 
 ### CRUD
 
-[Create](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/createEmployeeDemo.java)
-[Read](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/readEmployeeDemo.java)
-[Update](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/updateEmployeeDemo.java)
-[Delete](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/deleteEmployeeDemo.java)
+  - [Create](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/createEmployeeDemo.java)
+  - [Read](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/readEmployeeDemo.java)
+  - [Update](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/updateEmployeeDemo.java)
+  - [Delete](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/e5f000b823eda20d3de212f2cd834363e0bf8a4a/hibernate_tutorial/src/com/luv2code/hibernate/demo/deleteEmployeeDemo.java)
 
 *NOTE: IF CONFIGURATION FILE NAMEIS "hibernate.cfg.xml" ThHERE'S NO NEED TO SPECIFY IT*
 The SessionFactory is a thread safe object and used by all the threads of an application. A Session is used to get a physical connection with a database.
 
 ![image](https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/9995591c43c050fbfc25beacd8db1cc3d6eb7b75-600x315.png)
 
-### Starters
+## Starters
 Starters are groups of dependencies used to reduce the size of the pom file and make it easier to manage.
 
 [Starters Official Doc](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using.build-systems.starters)
@@ -814,9 +813,80 @@ Starters are groups of dependencies used to reduce the size of the pom file and 
       [Loggin official doc](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging)
 
 
-### Server Configuration
+## Server Configuration
 Spring boot server can be configured through the properties file of the project
 [Common properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties)
 
 
-### Dependency injection
+## Dependency injection
+  
+  For dependency injection **@Autowired** is used to perform this process.
+  - If there's one constructor the Autowired annotation is not required. 
+  - If the the object injected have only one implementation the type is infered.
+
+Process:
+
+  1. Define the **Interface**
+
+      [src/main/java/com/luv2code/springcoredemo/common/Coach.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/common/Coach.java)
+
+      ```
+      public interface Coach {
+
+        public String getDailyWorkout();
+      }
+      ```
+    2. Define **interface implementation**
+      [src/main/java/com/luv2code/springcoredemo/common/FootballCoach.java](src/main/java/com/luv2code/springcoredemo/common/FootballCoach.java)
+
+      ```
+      @Component
+      public class FootballCoach implements Coach{
+        @Override
+        public String getDailyWorkout() {
+        return "Run 20km!!!!";
+        }
+      }
+      ```
+
+### Types of injection
+#### Constructor
+  - Used for required dependencies
+  - The method recommended by the spring.io development team.
+    
+    Create the **Controller**. Use the @aAutowired annotation to inject the dependency
+    [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
+
+    ```
+    public class demoController {
+        private Coach demoCoach;
+
+        @Autowired
+        public demoController(Coach coach){
+            demoCoach = coach;
+        }
+        ...
+    ```
+#### Setter
+  - Optional dependencies
+  - Reasonable default logic when the dependency is not provided.
+
+  Create the setter method in the **Controller** and annotate it with the **@Autowired**
+
+  [src/main/java/com/luv2code/springcoredemo/rest/demoController.java]()
+  ```
+  public class demoController {
+
+    private Coach demoCoach;
+
+    @Autowired
+    public void setDemoCoach(Coach coach){
+        demoCoach = coach;
+    }
+    ...
+    ```   
+  
+
+
+
+
