@@ -888,6 +888,19 @@ Process:
 #### Field Injection   
   - Not recommended
   - Not unit testing friendly.
+
+  Set the **@Autowired** annotation to the field
+
+  [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/04-field-injection/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
+  ```
+  @RestController
+  public class demoController {
+
+    @Autowired
+    private Coach demoCoach;
+    ...
+  ```
+  
   
 
 
