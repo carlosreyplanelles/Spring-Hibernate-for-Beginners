@@ -955,6 +955,9 @@ The ambiguity on the implementation requested can also be soved using the **@Pri
 
 ## Bean lifecycle Methods
 
-**@PostConstruct:** Process performed after constructing the object
-**@PreDestroy:** Process performed before the object is destroyed
+- **@PostConstruct:** Process performed after constructing the object
+- **@PreDestroy:** Process performed before the object is destroyed
+
+[Code example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/09-bean-lifecycle/src/main/java/com/luv2code/springcoredemo/common/BaseballCoach.java)
+
 
