@@ -900,8 +900,54 @@ Process:
     private Coach demoCoach;
     ...
   ```
+### Qualifiers
+  - They are used to indicate the specific implementation to be used when there are more than one for the interface being used. 
+
+  [src/main/java/com/luv2code/springcoredemo/rest/DemoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/05-qualifiers/src/main/java/com/luv2code/springcoredemo/rest/DemoController.java)
+  ```
+  public class DemoController {
+
+    private Coach demoCoach;
+
+    @Autowired
+    public DemoController(@Qualifier("baseballCoach") Coach coach){
+        demoCoach = coach;
+    }
+    ...
+  ```
+
+  The ambiguity on the implementation requested can also be soved using the **@Primary** annotation in one of them.
+    - This annotation can only be used for one of the interface implementations.
+    - If one implementation is defined as primary there's no need to define a qualifier as it will solve the ambiguity by returning the annotated class.
+    - In case there's a qualifier defined for the dependency, this has higher priority.
+
+## Lazy Initialization
+
+  - With lazy initialization beans are only created when they are injected or explicitly called.
+  - By default this is disabled, althought can be enabled on properties configuration.
+
+  [src/main/resources/application.properties]()
+  ```
+  spring.main.lazy-initialization = true
+  ```
+  Also a class can be defined as lazy by using **@Lazy** annotation in the class.
+
+  [src/main/java/com/luv2code/springcoredemo/common/TennisCoach.java]()
+  ```
+  @Component
+  @Lazy
+  public class TennisCoach implements Coach{
+    ...
+  ```
+
+  Advantages
+    - Only create the objects when they are used
+    - If there are many components it reduces the startup time.
   
-  
+  Disadvantages
+    - Web related components (like @RestController) are not created until they are called.
+    - Makes more difficult to identify configuration issues.
+    - You can run out of memory for all the beans.
 
 
 
