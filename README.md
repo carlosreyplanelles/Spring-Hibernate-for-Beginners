@@ -926,13 +926,13 @@ Process:
   - With lazy initialization beans are only created when they are injected or explicitly called.
   - By default this is disabled, althought can be enabled on properties configuration.
 
-  [src/main/resources/application.properties]()
+  [src/main/resources/application.properties](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/07-Lazy/src/main/resources/application.properties)
   ```
   spring.main.lazy-initialization = true
   ```
   Also a class can be defined as lazy by using **@Lazy** annotation in the class.
 
-  [src/main/java/com/luv2code/springcoredemo/common/TennisCoach.java]()
+  [src/main/java/com/luv2code/springcoredemo/common/TennisCoach.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/07-Lazy/src/main/java/com/luv2code/springcoredemo/common/TennisCoach.java)
   ```
   @Component
   @Lazy
@@ -948,6 +948,18 @@ Process:
     - Web related components (like @RestController) are not created until they are called.
     - Makes more difficult to identify configuration issues.
     - You can run out of memory for all the beans.
+
+## Bean Scopes
+**@Scope:** specifies the configuration to be used for the bean
+  -  **singleton:** Scopes a single bean definition to a single object instance per Spring IoC container.
+  - **prototype:** Scopes a single bean definition to any number of object instances.
+  - **request:** Scopes a single bean definition to the lifecycle of a single HTTP request; that is each and every HTTP request will have its own instance of a bean created off the back of a single bean definition. Only valid in the context of a web-aware   Spring ApplicationContext.
+  - **session:** Scopes a single bean definition to the lifecycle of a HTTP Session. Only valid in the context of a web-aware Spring ApplicationContext.
+  - **global session:** Scopes a single bean definition to the lifecycle of a global HTTP Session. Typically only valid when used in a portlet context. Only valid in the context of a web-aware Spring ApplicationContext.
+
+  [Code example]()
+  
+  [Scopes documentation](https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch04s04.html)
 
 
 
