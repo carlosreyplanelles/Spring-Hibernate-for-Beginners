@@ -743,9 +743,6 @@ ____
 </hibernate-configuration>
 ```
 
-
-
-
 *src/com/luv2code/hibernate/demo/entity/Student.java*
 
 ```
@@ -798,12 +795,14 @@ public class Student {
 *NOTE: IF CONFIGURATION FILE NAMEIS "hibernate.cfg.xml" ThHERE'S NO NEED TO SPECIFY IT*
 The SessionFactory is a thread safe object and used by all the threads of an application. A Session is used to get a physical connection with a database.
 
+_____
+
 ![image](https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/9995591c43c050fbfc25beacd8db1cc3d6eb7b75-600x315.png)
 
 ## Starters
-Starters are groups of dependencies used to reduce the size of the pom file and make it easier to manage.
+  Starters are groups of dependencies used to reduce the size of the pom file and make it easier to manage.
 
-[Starters Official Doc](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using.build-systems.starters)
+  [Starters Official Doc](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using.build-systems.starters)
 
   - **Actuator:** Actuator dependency provides of some endpoints to track the applications activity( endpoints, status of the app...)
       [Actuator Official Doc](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator)
@@ -814,31 +813,29 @@ Starters are groups of dependencies used to reduce the size of the pom file and 
 
 
 ## Server Configuration
-Spring boot server can be configured through the properties file of the project
-[Common properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties)
+  Spring boot server can be configured through the properties file of the project
+  [Common properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties)
 
 
 ## Dependency injection
   
-  For dependency injection **@Autowired** is used to perform this process.
-  - If there's one constructor the Autowired annotation is not required. 
-  - If the the object injected have only one implementation the type is infered.
+For dependency injection **@Autowired** is used to perform this process.
+- If there's one constructor the Autowired annotation is not required. 
+- If the the object injected have only one implementation the type is infered.
 
 Process:
+1. Define the **Interface**
 
-  1. Define the **Interface**
-
-      [src/main/java/com/luv2code/springcoredemo/common/Coach.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/common/Coach.java)
-
+    [src/main/java/com/luv2code/springcoredemo/common/Coach.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/common/Coach.java)
       ```
       public interface Coach {
 
         public String getDailyWorkout();
       }
       ```
-    2. Define **interface implementation**
-      [src/main/java/com/luv2code/springcoredemo/common/FootballCoach.java](src/main/java/com/luv2code/springcoredemo/common/FootballCoach.java)
+2. Define **interface implementation**
 
+    [src/main/java/com/luv2code/springcoredemo/common/FootballCoach.java](src/main/java/com/luv2code/springcoredemo/common/FootballCoach.java)
       ```
       @Component
       public class FootballCoach implements Coach{
@@ -849,60 +846,58 @@ Process:
       }
       ```
 
-### Types of injection
-#### Constructor
+  ### Types of injection
+  #### Constructor
   - Used for required dependencies
   - The method recommended by the spring.io development team.
-    
     Create the **Controller**. Use the @aAutowired annotation to inject the dependency
-    [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
+      [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
 
-    ```
-    public class demoController {
+      ```
+      public class demoController {
+          private Coach demoCoach;
+
+          @Autowired
+          public demoController(Coach coach){
+            demoCoach = coach;
+          }
+          ...
+      ```
+    #### Setter
+      - Optional dependencies
+      - Reasonable default logic when the dependency is not provided.
+
+      Create the setter method in the **Controller** and annotate it with the **@Autowired**
+
+      [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/03-setter-injection/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
+      ```
+      public class demoController {
+
         private Coach demoCoach;
 
         @Autowired
-        public demoController(Coach coach){
+        public void setDemoCoach(Coach coach){
             demoCoach = coach;
         }
         ...
-    ```
-#### Setter
-  - Optional dependencies
-  - Reasonable default logic when the dependency is not provided.
+      ```
 
-  Create the setter method in the **Controller** and annotate it with the **@Autowired**
+    #### Field Injection   
+      - Not recommended
+      - Not unit testing friendly.
 
-  [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/03-setter-injection/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
-  ```
-  public class demoController {
+      Set the **@Autowired** annotation to the field
 
-    private Coach demoCoach;
+      [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/04-field-injection/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
+      ```
+      @RestController
+      public class demoController {
 
-    @Autowired
-    public void setDemoCoach(Coach coach){
-        demoCoach = coach;
-    }
-    ...
-    ```
-#### Field Injection   
-  - Not recommended
-  - Not unit testing friendly.
-
-  Set the **@Autowired** annotation to the field
-
-  [src/main/java/com/luv2code/springcoredemo/rest/demoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/04-field-injection/src/main/java/com/luv2code/springcoredemo/rest/demoController.java)
-  ```
-  @RestController
-  public class demoController {
-
-    @Autowired
-    private Coach demoCoach;
-    ...
-  ```
-### Qualifiers
-  - They are used to indicate the specific implementation to be used when there are more than one for the interface being used. 
-
+        @Autowired
+        private Coach demoCoach;
+      ```
+  ### Qualifiers
+  They are used to indicate the specific implementation to be used when there are more than one for the interface being used. 
   [src/main/java/com/luv2code/springcoredemo/rest/DemoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/05-qualifiers/src/main/java/com/luv2code/springcoredemo/rest/DemoController.java)
   ```
   public class DemoController {
@@ -911,15 +906,14 @@ Process:
 
     @Autowired
     public DemoController(@Qualifier("baseballCoach") Coach coach){
-        demoCoach = coach;
+      demoCoach = coach;
     }
-    ...
   ```
 
-  The ambiguity on the implementation requested can also be soved using the **@Primary** annotation in one of them.
-    - This annotation can only be used for one of the interface implementations.
-    - If one implementation is defined as primary there's no need to define a qualifier as it will solve the ambiguity by returning the annotated class.
-    - In case there's a qualifier defined for the dependency, this has higher priority.
+The ambiguity on the implementation requested can also be soved using the **@Primary** annotation in one of them.
+- **@Primary** can only be used for one of the interface implementations.
+- If one implementation is defined as **@Primary** there's no need to define a qualifier as it will solve the ambiguity by returning the annotated class.
+-  **@Qualifier has priority over @Primary annotation.**
 
 ## Lazy Initialization
 
@@ -950,16 +944,17 @@ Process:
     - You can run out of memory for all the beans.
 
 ## Bean Scopes
-**@Scope:** specifies the configuration to be used for the bean
-  -  **singleton:** Scopes a single bean definition to a single object instance per Spring IoC container.
+  **@Scope:** specifies the configuration to be used for the bean
+  - **singleton:** Scopes a single bean definition to a single object instance per Spring IoC container.
   - **prototype:** Scopes a single bean definition to any number of object instances.
   - **request:** Scopes a single bean definition to the lifecycle of a single HTTP request; that is each and every HTTP request will have its own instance of a bean created off the back of a single bean definition. Only valid in the context of a web-aware   Spring ApplicationContext.
   - **session:** Scopes a single bean definition to the lifecycle of a HTTP Session. Only valid in the context of a web-aware Spring ApplicationContext.
   - **global session:** Scopes a single bean definition to the lifecycle of a global HTTP Session. Typically only valid when used in a portlet context. Only valid in the context of a web-aware Spring ApplicationContext.
 
-  [Code example]()
-  
-  [Scopes documentation](https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch04s04.html)
+  [Code example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/08-bean-scopes/src/main/java/com/luv2code/springcoredemo/common/BaseballCoach.java)
 
+## Bean lifecycle Methods
 
+**@PostConstruct:** Process performed after constructing the object
+**@PreDestroy:** Process performed before the object is destroyed
 
