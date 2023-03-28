@@ -795,11 +795,15 @@ public class Student {
 *NOTE: IF CONFIGURATION FILE NAMEIS "hibernate.cfg.xml" ThHERE'S NO NEED TO SPECIFY IT*
 The SessionFactory is a thread safe object and used by all the threads of an application. A Session is used to get a physical connection with a database.
 
-_____
+<details>
+<summary>Spring Boot</summary>
 
 ![image](https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/9995591c43c050fbfc25beacd8db1cc3d6eb7b75-600x315.png)
 
-## Starters
+## General
+<details>
+<summary>Starters</summary>
+
   Starters are groups of dependencies used to reduce the size of the pom file and make it easier to manage.
 
   [Starters Official Doc](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using.build-systems.starters)
@@ -810,14 +814,19 @@ _____
   - **Security:** Allows to limit the access to specific endpoints and external resources.
   -  **Spring Boot Logging:** Logging systems configuration based on the pakage or to the whole app.
       [Loggin official doc](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging)
+</details>
 
+<details>
+<summary>Server properties configuration through properties file</summary>
 
-## Server Configuration
   Spring boot server can be configured through the properties file of the project
   [Common properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties)
+</details>
 
+## Beans
 
-## Dependency injection
+<details>
+<summary>Dependency injection</summary>
   
 For dependency injection **@Autowired** is used to perform this process.
 - If there's one constructor the Autowired annotation is not required. 
@@ -896,7 +905,8 @@ Process:
         @Autowired
         private Coach demoCoach;
       ```
-  ### Qualifiers
+### Qualifiers
+
   They are used to indicate the specific implementation to be used when there are more than one for the interface being used. 
   [src/main/java/com/luv2code/springcoredemo/rest/DemoController.java](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/05-qualifiers/src/main/java/com/luv2code/springcoredemo/rest/DemoController.java)
   ```
@@ -910,12 +920,15 @@ Process:
     }
   ```
 
+
 The ambiguity on the implementation requested can also be soved using the **@Primary** annotation in one of them.
 - **@Primary** can only be used for one of the interface implementations.
 - If one implementation is defined as **@Primary** there's no need to define a qualifier as it will solve the ambiguity by returning the annotated class.
 -  **@Qualifier has priority over @Primary annotation.**
+</details>
 
-## Lazy Initialization
+<details>
+<summary>Lazy initialization</summary>
 
   - With lazy initialization beans are only created when they are injected or explicitly called.
   - By default this is disabled, althought can be enabled on properties configuration.
@@ -942,8 +955,11 @@ The ambiguity on the implementation requested can also be soved using the **@Pri
     - Web related components (like @RestController) are not created until they are called.
     - Makes more difficult to identify configuration issues.
     - You can run out of memory for all the beans.
+</details>
 
-## Bean Scopes
+<details>
+<summary>Bean Scopes</summary>
+
   **@Scope:** specifies the configuration to be used for the bean
   - **singleton:** Scopes a single bean definition to a single object instance per Spring IoC container.
   - **prototype:** Scopes a single bean definition to any number of object instances.
@@ -953,11 +969,57 @@ The ambiguity on the implementation requested can also be soved using the **@Pri
 
   [Code example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/08-bean-scopes/src/main/java/com/luv2code/springcoredemo/common/BaseballCoach.java)
 
-## Bean lifecycle Methods
+### Bean lifecycle Methods
 
 - **@PostConstruct:** Process performed after constructing the object
 - **@PreDestroy:** Process performed before the object is destroyed
 
 [Code example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/09-bean-lifecycle/src/main/java/com/luv2code/springcoredemo/common/BaseballCoach.java)
+</details>
+
+<details>
+<summary>Bean configuration using java class</summary>
+
+Instead of using **@Component** annotation to declare a Bean, Configuration java classes can be used to define the beans manually. In order to achieve this a class needs to be created annotated with the **@Configuration** annotation.
+The main reason to use configuration classes to define beans are injecting third parties which code can't be accessed and they don't include **@Component** annotation or any annotation to indicate that a bean must be created.
+
+[Config class example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/10-java-config-bean/src/main/java/com/luv2code/springcoredemo/config/SportConfig.java)
+</details>
+
+## Hibernate
+
+<details>
+<summary> Hibernate Starters </summary>
+
+- **Mysql Driver** Mysql JDBC Driver 
+- **Spring Data JPA** Spring Data JPA provides repository support for the Jakarta Persistence API (JPA). It eases development of applications that need to access JPA data sources.
+[JPA Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+</details>
 
 
+[Database properties]()
+
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/hb_student_tracker
+spring.datasource.username=hbstudent
+spring.datasource.password=hbstudent
+```
+<details>
+<summary>CRUD</summary>
+
+**@Entity** Indicates this class represents a table in the database. If the class name and the table name are the same it it will connect both models automatically.
+**@Table** Used to define the name of the table in the database to be related.Optional
+**@Column** Defines the name of the column in the database that is stored in the following object.
+
+[Student Entity]()
+
+[StudentDAO (Data Access Object) interface]()
+
+**@Repository** special @Component annotation implementation. Takes care of the bean creation (like @Component annotation) and also manages JDBC errors.
+**@Transactional** Can be used on class or method level. This annotation handles the transaction to the database and the connection closing; also it will rollback the method calls when an unhandled expection is thrown **(The checked exception does not trigger a rollback of the transaction. We can, of course, configure this behavior with the rollbackFor and noRollbackFor annotation parameters)**.
+
+[StudentDAO interface impementation]()
+
+[Main program]()
+</details>
+</details>
