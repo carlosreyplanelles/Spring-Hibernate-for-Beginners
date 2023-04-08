@@ -1113,11 +1113,19 @@ Will have some basic CRUD methods (and queries) defined and implemented.
 ## Spring Data Rest
 Once injected through pom file, spring data rest dependency will create a basic REST service based on the jpaRepository automatically with the corresponding endpoints. 
 ### Configuration
-
-**@RepositoryRestResource** Allows to modify the rout to access to a resource.
-[Employee jpa repository]()
+**@RepositoryRestResource** Allows to modify the route to access to a resource and to create custom routes (@RestResource(path = "byEmail", rel = "customFindMethod")).
+[Employee JPA repository](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/04-spring-boot-%20rest-CRUD/40-spring-boot-rest-crud-employee-with-spring-data-rest/src/main/java/com/luv2code/springboot/cruddemo/dao/EmployeeRepository.java)
 
 When using spring data rest service HATEOAS service will generate the response paginated on batches of 20 registers. Pagination along with other properties can be modified via properties file:
 [Spring Data Rest properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.data.spring.data.rest.base-path)
+
+</details>
+
+<details>
+<summary>Spring Security</summary>
+
+[Security Reference Manual](https://docs.spring.io/spring-security/reference/)
+## Authenication
+[InMemory Role based Authentication]()
 </details>
 </details>
