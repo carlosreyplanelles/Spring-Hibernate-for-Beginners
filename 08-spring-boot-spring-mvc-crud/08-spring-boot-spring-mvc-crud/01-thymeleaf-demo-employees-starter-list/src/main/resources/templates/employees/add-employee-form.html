@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <title>Create Employee</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        Employee Directory
+    </div>
+    <p class="h4 mb-4">Create Employee</p>
+    <form action="#" th:action="@{/employees/save}" th:object="${employee}" method="post">
+
+        <input type="text" class="form-control mb-4 w-25" th:field="*{firstName}" placeholder="First Name">
+        <input type="text" class="form-control mb-4 w-25" th:field="*{lastName}" placeholder="Last Name">
+        <input type="email" class="form-control mb-4 w-25" th:field="*{email}" placeholder="Email">
+
+        <button class ="btn btn-info clo-2" type="submit">Create</button>
+    </form>
+    <hr>
+    <a th:href="@{/employees/list}">Back to employee List</a>
+</div>
+
+
+</body>
+</html>

@@ -2,6 +2,9 @@
 
 https://www.udemy.com/course/spring-hibernate-tutorial/
 
+
+<details>
+<summary>Spring</summary>
 In order to use spring framework it has to be downloaded from:
 https://repo.spring.io/artifactory/release/org/springframework/spring/5.3.9/
 
@@ -794,7 +797,8 @@ public class Student {
 
 *NOTE: IF CONFIGURATION FILE NAMEIS "hibernate.cfg.xml" ThHERE'S NO NEED TO SPECIFY IT*
 The SessionFactory is a thread safe object and used by all the threads of an application. A Session is used to get a physical connection with a database.
-
+____
+</details>
 <details>
 <summary>Spring Boot</summary>
 
@@ -1126,6 +1130,49 @@ When using spring data rest service HATEOAS service will generate the response p
 
 [Security Reference Manual](https://docs.spring.io/spring-security/reference/)
 ## Authenication
-[InMemory Role based Authentication]()
+In order to allow Spring boot to get the registration information from the database by default We will have to define the tables *users* and *authorities*:
+```
+CREATE TABLE `users` (
+  `username` varchar(50) NOT NULL,
+  `password` char(68) NOT NULL,
+  `enabled` tinyint NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `authorities` (
+  `username` varchar(50) NOT NULL,
+  `authority` varchar(50) NOT NULL,
+  UNIQUE KEY `authorities4_idx_1` (`username`,`authority`),
+  CONSTRAINT `authorities4_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+```
+You can configure custom tables for user authentication. This will require to let the app know the specific query to retriever user and roles info.
+[Role based Authentication](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/05-Spring-boot-rest-security/00-spring-boot-rest-security-employee-starter-code/src/main/java/com/luv2code/springboot/cruddemo/security/DemoSecurityConfig.java)
+### Password encryption
+Spring Security allow to store encrypted passwords using different algorithms (althought the recommended one is bcrypt).
+The encryption algorithm used is stored in the database contained into brackets('{}'):
+```
+{noop}test123
+{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q
+```
+**{noop}:** No encryption applied. The password is stored as plain text.
+**{bcrypt}:** Bcrypt encryption is applied to the password. Bcrypt is a one way encripting. Wen introducing the user information will apply the salt in the password stored in the database to the password introduced by the user. The password in the database can't be decrypted.
+</details>
+<details>
+<summary>Thymeleaf</summary>
+
+Thymeleaf is a templating framework used for java applications. This framework can be used for any type of application based on java.
+[Thymeleaf docs](https://www.thymeleaf.org/documentation.html)
+
+In order to return an html file, a controller have to be created and return the name of the html file without the extension. All the information will be added to the model by using the addAttribute method indicating the name and the value for this property in the model.
+[Controller]()
+
+## Resources
+By default, the system look for the templates in the resources folder of the project. 
+
+## Accessing java objects information
+In order to access java objects information from the template we will have to will use the syntax ${\[Model property name\]}
+[HTML template]()
+
 </details>
 </details>
