@@ -1175,5 +1175,7 @@ In order to access java objects information from the template we will have to wi
 [HTML template](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/07-Spring-boot-spring-mvc/01-thymeleafdemo-helloworld/src/main/resources/templates/helloWorld.html)
 </details>
 
+[SpringBoot Security](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/08-spring-boot-spring-mvc-security)
+
 [Final Spring Boot Project - Employees Directory CRUD](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/08-spring-boot-spring-mvc-crud)
 </details>
