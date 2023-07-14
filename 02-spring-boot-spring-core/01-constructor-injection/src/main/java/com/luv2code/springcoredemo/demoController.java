@@ -10,6 +10,7 @@ public class demoController {
     private Coach demoCoach;
 
     @Autowired
+    //Constructor Injection
     public demoController(Coach coach){
         demoCoach = coach;
     }

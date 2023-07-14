@@ -9,13 +9,14 @@ ____
     - [Setter](#setter)
     - [Field injection](#field_injection)
     - [Qualifiers](#qualifiers)
- 2. [Lazy Initialization](#lazy)
- 3. [Bean Scopes](#scope)
+ 2. [Component Scanning](#scan) 
+ 3. [Lazy Initialization](#lazy)
+ 4. [Bean Scopes](#scope)
     - [Bean Lifecycle methods](#lifecycle)
- 4. [Bean configuration using java class](#config_java_class)
+ 5. [Bean configuration using java class](#config_java_class)
 
-  ### <a id="injection_types">Types of Injection</a>
-  #### <a id="constructor">Constructor</a>
+  ### <label id="injection_types">Types of Injection</label>
+  #### <label id="constructor">Constructor</label>
   - Used for required dependencies
   - The method recommended by the spring.io development team.
     Create the **Controller**. Use the @aAutowired annotation to inject the dependency
@@ -31,7 +32,7 @@ ____
           }
           ...
       ```
-    #### <a id="setter">Setter</a>
+    #### <label id="setter">Setter</label>
       - Optional dependencies
       - Reasonable default logic when the dependency is not provided.
 
@@ -50,7 +51,7 @@ ____
         ...
       ```
 
-    #### <a id="field_injection">Field Injection</a>   
+    #### <label id="field_injection">Field Injection</label>   
       - Not recommended
       - Not unit testing friendly.
 
@@ -64,7 +65,7 @@ ____
         @Autowired
         private Coach demoCoach;
       ```
-    ### <a id="qualifiers">Qualifiers</a>
+    ### <label id="qualifiers">Qualifiers</label>
 
     They are used to indicate the specific implementation to be used when there are more than one for the interface being used. 
     [Controller implementation (Qualifiers)](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/05-qualifiers/src/main/java/com/luv2code/springcoredemo/rest/DemoController.java)
@@ -86,8 +87,11 @@ ____
 
 ____
 
+## <label id="scan">Component Scanning</label>
+The checked packages for any Spring annotation can be indicated by adding a scanBasePackages parameter in the main @SpringbootApplication annotation.
+[Component Scan Packages configuration](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/SpringcoredemoApplication.java)
 
-## <a id="lazy">Lazy Initialization</a>
+## <label id="lazy">Lazy Initialization</label>
 
   - With lazy initialization beans are only created when they are injected or explicitly called.
   - By default this is disabled, althought can be enabled on properties configuration.
@@ -115,7 +119,7 @@ ____
     - Makes more difficult to identify configuration issues.
     - You can run out of memory for all the beans.
 
-## <a id="scope">Bean Scopes</a>
+## <label id="scope">Bean Scopes</label>
 
   **@Scope:** specifies the configuration to be used for the bean (Which is the bean context)
 
@@ -129,7 +133,7 @@ ____
 
   [Code example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/08-bean-scopes/src/main/java/com/luv2code/springcoredemo/common/BaseballCoach.java)
 
-### <a id="lifecycle">Bean Lifecycle methods</a>
+### <label id="lifecycle">Bean Lifecycle methods</label>
 
 - **@PostConstruct:** Process performed after constructing the object
 - **@PreDestroy:** Process performed before the object is destroyed
@@ -139,7 +143,7 @@ ____
 ____
 
 
-## <a id="config_java_class">Bean configuration using java class</a>
+## <label id="config_java_class">Bean configuration using java class</label>
 
 Instead of using **@Component** annotation to declare a Bean, Configuration java classes can be used to define the beans manually. In order to achieve this a class needs to be created annotated with the **@Configuration** annotation.
 The main reason to use configuration classes to define beans are injecting third parties which code can't be accessed and they don't include **@Component** annotation or any annotation to indicate that a bean must be created.
