@@ -819,15 +819,15 @@ ____
       [Loggin official doc](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging)
 
 ## INDEX
- 1. [Types of injection](#injection_types)
-    - [Constructor](#constructor)
-    - [Setter](#setter)
-    - [Field injection](#field_injection)
-    - [Qualifiers](#qualifiers)
- 2. [Lazy Initialization](#lazy)
- 3. [Bean Scopes](#scope)
-    - [Bean Lifecycle methods](#lifecycle)
- 4. [Bean configuration using java class](#config_java_class)
+ 1. [Types of injection](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#injection_types)
+    - [Constructor](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#constructor)
+    - [Setter](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#setter)
+    - [Field injection](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#field_injection)
+    - [Qualifiers](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#qualifiers)
+ 2. [Lazy Initialization](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#lazy)
+ 3. [Bean Scopes](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#scope)
+    - [Bean Lifecycle methods](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#lifecycle)
+ 4. [Bean configuration using java class](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#config_java_class)
 
 <details>
 <summary>Server properties configuration through properties file</summary>
