@@ -44,7 +44,7 @@ public class DemoSecurityConfig {
         http.httpBasic();
 
         //Disable Cross Site Request Forgery (CSRF)
-        //Normally ton required for stateless Rest APIs that use POST,PUT,DELETE and/or PATCH
+        //Normally not required for stateless Rest APIs that use POST,PUT,DELETE and/or PATCH
         http.csrf().disable();
 
         return http.build();
