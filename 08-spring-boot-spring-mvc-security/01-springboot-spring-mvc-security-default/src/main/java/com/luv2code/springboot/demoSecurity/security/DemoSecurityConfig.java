@@ -31,7 +31,7 @@ public class DemoSecurityConfig {
                 .roles("EMPLOYEE", "MANAGER", "ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(john, mary);
+        return new InMemoryUserDetailsManager(john, mary, susan);
     }
 
     //Custom Login Form
@@ -40,14 +40,20 @@ public class DemoSecurityConfig {
 
         http.authorizeHttpRequests(configurer ->
                 configurer
+                        //Role based spring security configuration.
+                        .requestMatchers("/").hasRole("EMPLOYEE")
+                        .requestMatchers("/leaders/**").hasRole("MANAGER")
+                        .requestMatchers("/systems/**").hasRole("ADMIN")
                         .anyRequest()
-                        .authenticated());//All the requests have to be authenticated (be a logged in user)
-
-        http.formLogin(form ->
+                        .authenticated())//All the requests have to be authenticated (be a logged in user)
+            .formLogin(form ->
                 form
                         .loginPage("/showLogin") //Route to load the custom login form
                         .loginProcessingUrl("/authenticateUser") //Route to process login information provided
-                        .permitAll());// Login form is accessible to every user trying to access to the site
+                        .permitAll())// Login form is accessible to every user trying to access to the site
+                .logout(logout->logout.permitAll()
+                );
+
         return http.build();
     }
 }

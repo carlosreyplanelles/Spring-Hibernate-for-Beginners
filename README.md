@@ -42,46 +42,7 @@ Starters are groups of dependencies used to reduce the size of the pom file and 
 Spring boot server can be configured through the properties file of the project
 [Common properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties)
 
-</details>
-
 ## Beans
-
-<details>
-<summary>Dependency injection</summary>
-  
-For dependency injection **@Autowired** is used to perform this process.
-- If there's one constructor the Autowired annotation is not required. 
-- If the the object injected have only one implementation the type is infered.
-
-Process:
-
-1. Define the **Interface**
-
-   [Coach interface](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/common/Coach.java)
-
-   ```
-   public interface Coach {
-
-     public String getDailyWorkout();
-   }
-   ```
-
-2. Define **interface implementation**
-
-   [FootbalCoach implementation](src/main/java/com/luv2code/springcoredemo/common/FootballCoach.java)
-
-   ```
-   @Component
-   public class FootballCoach implements Coach{
-     @Override
-     public String getDailyWorkout() {
-     return "Run 20km!!!!";
-     }
-   }
-   ```
-
-</details>
-
 ## Hibernate
 
 - Hibernate handles all of the low-level SQL

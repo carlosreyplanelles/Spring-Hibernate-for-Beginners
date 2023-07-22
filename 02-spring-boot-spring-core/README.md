@@ -4,17 +4,49 @@ https://www.udemy.com/course/spring-hibernate-tutorial/
 ____
 
 ## INDEX
- 1. [Types of injection](#injection_types)
+ 1. [Defining injectable component](#process)
+ 2. [Types of injection](#injection_types)
     - [Constructor](#constructor)
     - [Setter](#setter)
     - [Field injection](#field_injection)
     - [Qualifiers](#qualifiers)
- 2. [Component Scanning](#scan) 
- 3. [Lazy Initialization](#lazy)
- 4. [Bean Scopes](#scope)
+ 3. [Component Scanning](#scan) 
+ 4. [Lazy Initialization](#lazy)
+ 5. [Bean Scopes](#scope)
     - [Bean Lifecycle methods](#lifecycle)
- 5. [Bean configuration using java class](#config_java_class)
+ 6. [Bean configuration using java class](#config_java_class)
 
+**@Autowired** is used to perform the dependency injection.
+- If there's one constructor the Autowired annotation is not required. 
+- If the the object injected have only one implementation the type is infered.
+
+### <label id="process">Defining injectable component</label>
+
+1. Define the **Interface**
+
+   [Coach interface](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/common/Coach.java)
+
+   ```
+   public interface Coach {
+
+     public String getDailyWorkout();
+   }
+   ```
+
+2. Define **interface implementation**
+
+   [FootbalCoach implementation](src/main/java/com/luv2code/springcoredemo/common/FootballCoach.java)
+
+   ```
+   @Component
+   public class FootballCoach implements Coach{
+     @Override
+     public String getDailyWorkout() {
+     return "Run 20km!!!!";
+     }
+   }
+   ```
+   After performing this process itwill be possible to inject any coach implementation in a Coach object. There are different types of injection:
   ### <label id="injection_types">Types of Injection</label>
   #### <label id="constructor">Constructor</label>
   - Used for required dependencies

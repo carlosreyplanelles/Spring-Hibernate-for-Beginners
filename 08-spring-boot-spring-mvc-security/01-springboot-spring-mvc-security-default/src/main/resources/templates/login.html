@@ -4,10 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Custom Login Form</title>
+    <style>
+        .color_error{
+            color:red
+        }
+    </style>
 </head>
 <body>
 
 <h1>Company Login</h1>
+<!-- Check for login error-->
+<div th:if="${param.error}">
+    <p class="color_error">Wrong combination of username and password</p>
+</div>
 <form action="#" th:action="@{/authenticateUser}" method="POST">
 
     <div>
@@ -19,6 +28,8 @@
         <input id="password" type="password" name="password">
     </div>
     <input type="submit" value="Login">
+
+    <a th:href="@{/}">Click here</a>
 </form>
 
 
