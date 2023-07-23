@@ -8,7 +8,7 @@ ____
  2. [Injection](#injection-types)
     - [Constructor](#constructor)
     - [Setter](#setter)
-    - [Field injection](#field_injection)
+    - [Field injection](#fieldinjection)
     - [Qualifiers](#qualifiers)
  3. [Component Scanning](#scan) 
  4. [Lazy Initialization](#lazy)
@@ -83,7 +83,7 @@ ____
         ...
       ```
 
-    #### <label id="field_injection">Field Injection</label>   
+    #### <label id="fieldinjection">Field Injection</label>   
       - Not recommended
       - Not unit testing friendly.
 
