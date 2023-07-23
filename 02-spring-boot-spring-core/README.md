@@ -5,7 +5,7 @@ ____
 
 ## INDEX
  1. [Injectable component](#process)
- 2. [Injection](#injection-types)
+ 2. [Injection](#injectiontypes)
     - [Constructor](#constructor)
     - [Setter](#setter)
     - [Field injection](#fieldinjection)
@@ -47,7 +47,7 @@ ____
    }
    ```
    After performing this process itwill be possible to inject any coach implementation in a Coach object. There are different types of injection:
-  ### <label id="injection-types">Types of Injection</label>
+  ### <label id="injectiontypes">Types of Injection</label>
   #### <label id="constructor">Constructor</label>
   - Used for required dependencies
   - The method recommended by the spring.io development team.
