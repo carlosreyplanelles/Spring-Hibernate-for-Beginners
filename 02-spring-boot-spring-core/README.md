@@ -4,8 +4,8 @@ https://www.udemy.com/course/spring-hibernate-tutorial/
 ____
 
 ## INDEX
- 1. [Defining injectable component](#process)
- 2. [Types of injection](#injection_types)
+ [1. Defining injectable component](#process)
+ [2. Types of injection](#injection_types)
     - [Constructor](#constructor)
     - [Setter](#setter)
     - [Field injection](#field_injection)
