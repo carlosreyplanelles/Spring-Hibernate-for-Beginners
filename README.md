@@ -23,16 +23,16 @@ Starters are groups of dependencies used to reduce the size of the pom file and 
 
 ## INDEX
 
-1.  [Types of injection](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#injection_types)
+1.  [Types of injection](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#types-of-injection)
     - [Constructor](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#constructor)
     - [Setter](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#setter)
-    - [Field injection](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#field_injection)
+    - [Field injection](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#field)
     - [Qualifiers](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#qualifiers)
-2.  [Component Scanning](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#scan)
-3.  [Lazy Initialization](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#lazy)
-4.  [Bean Scopes](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#scope)
-    - [Bean Lifecycle methods](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#lifecycle)
-5.  [Bean configuration using java class](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#config_java_class)
+2.  [Component Scanning](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#component-scanning)
+3.  [Lazy Initialization](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#lazy-initialization)
+4.  [Bean Scopes](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#bean-scopes)
+    - [Bean Lifecycle methods](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#bean-lifecycle-methods)
+5.  [Bean configuration using java class](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core#bean-configuration-using-java-class)
 
 6.  [Spring Security -Rest - Role based authentication]()
 
