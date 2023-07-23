@@ -4,7 +4,7 @@ https://www.udemy.com/course/spring-hibernate-tutorial/
 ____
 
 ## INDEX
- 1. [Injectable component](#process)
+ 1. [Defining injectable component](#process)
  2. [Injection](#injectiontypes)
     - [Constructor](#constructor)
     - [Setter](#setter)
@@ -20,7 +20,7 @@ ____
 - If there's one constructor the Autowired annotation is not required. 
 - If the the object injected have only one implementation the type is infered.
 
-### <label id="process">Defining injectable component</label>
+### Defining injectable component
 
 1. Define the **Interface**
 
