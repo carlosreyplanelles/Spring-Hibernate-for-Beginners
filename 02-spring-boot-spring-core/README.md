@@ -5,7 +5,7 @@ ____
 
 ## INDEX
  1. [Injectable component](#process)
- 2. [Injection](#injection_types)
+ 2. [Injection](#injection-types)
     - [Constructor](#constructor)
     - [Setter](#setter)
     - [Field injection](#field_injection)
@@ -13,7 +13,7 @@ ____
  3. [Component Scanning](#scan) 
  4. [Lazy Initialization](#lazy)
  5. [Bean Scopes](#scope)
-    - [Bean Lifecycle methods](#lifecycle)
+    - [Bean Lifecycle methods](#lifecycle)<a href="#lifecycle">lifecycle</a>
  6. [Bean configuration using java class](#config_java_class)
 
 **@Autowired** is used to perform the dependency injection.
@@ -47,7 +47,7 @@ ____
    }
    ```
    After performing this process itwill be possible to inject any coach implementation in a Coach object. There are different types of injection:
-  ### <label id="injection_types">Types of Injection</label>
+  ### <label id="injection-types">Types of Injection</label>
   #### <label id="constructor">Constructor</label>
   - Used for required dependencies
   - The method recommended by the spring.io development team.
