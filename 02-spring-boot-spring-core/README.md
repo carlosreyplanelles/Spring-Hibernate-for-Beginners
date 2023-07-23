@@ -4,7 +4,7 @@ https://www.udemy.com/course/spring-hibernate-tutorial/
 ____
 
 ## INDEX
- 1. [Defining injectable component](#process)
+ 1. [Defining injectable component](#defining-injectable-component)
  2. [Injection](#injectiontypes)
     - [Constructor](#constructor)
     - [Setter](#setter)
@@ -13,7 +13,7 @@ ____
  3. [Component Scanning](#scan) 
  4. [Lazy Initialization](#lazy)
  5. [Bean Scopes](#scope)
-    - [Bean Lifecycle methods](#lifecycle)<a href="#lifecycle">lifecycle</a>
+    - [Bean Lifecycle methods](#lifecycle)
  6. [Bean configuration using java class](#config_java_class)
 
 **@Autowired** is used to perform the dependency injection.
@@ -47,8 +47,8 @@ ____
    }
    ```
    After performing this process itwill be possible to inject any coach implementation in a Coach object. There are different types of injection:
-  ### <label id="injectiontypes">Types of Injection</label>
-  #### <label id="constructor">Constructor</label>
+  ### Types of Injection
+  #### Constructor
   - Used for required dependencies
   - The method recommended by the spring.io development team.
     Create the **Controller**. Use the @aAutowired annotation to inject the dependency
@@ -64,7 +64,7 @@ ____
           }
           ...
       ```
-    #### <label id="setter">Setter</label>
+    #### Setter
       - Optional dependencies
       - Reasonable default logic when the dependency is not provided.
 
@@ -83,7 +83,7 @@ ____
         ...
       ```
 
-    #### <label id="fieldinjection">Field Injection</label>   
+    #### Field Injection  
       - Not recommended
       - Not unit testing friendly.
 
@@ -97,7 +97,7 @@ ____
         @Autowired
         private Coach demoCoach;
       ```
-    ### <label id="qualifiers">Qualifiers</label>
+    ### Qualifiers
 
     They are used to indicate the specific implementation to be used when there are more than one for the interface being used. 
     [Controller implementation (Qualifiers)](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/05-qualifiers/src/main/java/com/luv2code/springcoredemo/rest/DemoController.java)
@@ -119,11 +119,11 @@ ____
 
 ____
 
-## <label id="scan">Component Scanning</label>
+## Component Scanning
 The checked packages for any Spring annotation can be indicated by adding a scanBasePackages parameter in the main @SpringbootApplication annotation.
 [Component Scan Packages configuration](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/02-component-scanning/src/main/java/com/luv2code/springcoredemo/SpringcoredemoApplication.java)
 
-## <label id="lazy">Lazy Initialization</label>
+## Lazy Initialization
 
   - With lazy initialization beans are only created when they are injected or explicitly called.
   - By default this is disabled, althought can be enabled on properties configuration.
@@ -151,7 +151,7 @@ The checked packages for any Spring annotation can be indicated by adding a scan
     - Makes more difficult to identify configuration issues.
     - You can run out of memory for all the beans.
 
-## <label id="scope">Bean Scopes</label>
+## Bean Scopes
 
   **@Scope:** specifies the configuration to be used for the bean (Which is the bean context)
 
@@ -165,7 +165,7 @@ The checked packages for any Spring annotation can be indicated by adding a scan
 
   [Code example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/08-bean-scopes/src/main/java/com/luv2code/springcoredemo/common/BaseballCoach.java)
 
-### <label id="lifecycle">Bean Lifecycle methods</label>
+### Bean Lifecycle methods
 
 - **@PostConstruct:** Process performed after constructing the object
 - **@PreDestroy:** Process performed before the object is destroyed
@@ -175,7 +175,7 @@ The checked packages for any Spring annotation can be indicated by adding a scan
 ____
 
 
-## <label id="config_java_class">Bean configuration using java class</label>
+## Bean configuration using java class
 
 Instead of using **@Component** annotation to declare a Bean, Configuration java classes can be used to define the beans manually. In order to achieve this a class needs to be created annotated with the **@Configuration** annotation.
 The main reason to use configuration classes to define beans are injecting third parties which code can't be accessed and they don't include **@Component** annotation or any annotation to indicate that a bean must be created.
