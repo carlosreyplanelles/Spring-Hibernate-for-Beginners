@@ -3,19 +3,6 @@
 https://www.udemy.com/course/spring-hibernate-tutorial/
 ____
 
-## INDEX
- 1. [Defining injectable component](#defining-injectable-component)
- 2. [Injection](#injectiontypes)
-    - [Constructor](#constructor)
-    - [Setter](#setter)
-    - [Field injection](#fieldinjection)
-    - [Qualifiers](#qualifiers)
- 3. [Component Scanning](#scan) 
- 4. [Lazy Initialization](#lazy)
- 5. [Bean Scopes](#scope)
-    - [Bean Lifecycle methods](#lifecycle)
- 6. [Bean configuration using java class](#config_java_class)
-
 **@Autowired** is used to perform the dependency injection.
 - If there's one constructor the Autowired annotation is not required. 
 - If the the object injected have only one implementation the type is infered.
