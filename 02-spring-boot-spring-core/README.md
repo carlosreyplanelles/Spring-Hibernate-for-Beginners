@@ -7,7 +7,14 @@ ____
 - If there's one constructor the Autowired annotation is not required. 
 - If the the object injected have only one implementation the type is infered.
 
-### Defining injectable component
+Before going into this section let's answer the basic question. What is a bean in springboot?
+```
+A bean is the objects that form the backbone of your application and that are managed by the Spring IoC container. 
+In simple terms an instance of an object in our app that is annotated properly(@component, @controller...). 
+All of this annotations will create an instance (bean) of the object that we can reference in our code without having to call the constructor explicitly.
+```
+
+## Defining injectable Bean
 
 1. Define the **Interface**
 
@@ -34,8 +41,8 @@ ____
    }
    ```
    After performing this process itwill be possible to inject any coach implementation in a Coach object. There are different types of injection:
-  ### Types of Injection
-  #### Constructor
+  ## Types of Injection
+  ### Constructor
   - Used for required dependencies
   - The method recommended by the spring.io development team.
     Create the **Controller**. Use the @aAutowired annotation to inject the dependency
@@ -51,7 +58,7 @@ ____
           }
           ...
       ```
-    #### Setter
+    ### Setter
       - Optional dependencies
       - Reasonable default logic when the dependency is not provided.
 
@@ -70,7 +77,7 @@ ____
         ...
       ```
 
-    #### Field 
+    ### Field 
       - Not recommended
       - Not unit testing friendly.
 
@@ -84,7 +91,7 @@ ____
         @Autowired
         private Coach demoCoach;
       ```
-    ### Qualifiers
+    ## Qualifiers
 
     They are used to indicate the specific implementation to be used when there are more than one for the interface being used. 
     [Controller implementation (Qualifiers)](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/02-spring-boot-spring-core/05-qualifiers/src/main/java/com/luv2code/springcoredemo/rest/DemoController.java)
