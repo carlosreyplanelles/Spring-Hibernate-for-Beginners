@@ -2,8 +2,8 @@
  ----
 
 # Spring Boot - Spring Security
-## <label id="authentication">Authentication
-### <label id="in-memory">In Memory Authentication</label>
+## Basic Configuration
+### In memory authentication
 1. Create a security configuration class 
 2. Add users passwords and roles
 ```
@@ -17,7 +17,7 @@ Different encryption methods can be used for password encryption between the cur
 ```
 [Security configuration class]()
 
-## <label id="custom-login">Custom Login Form</label>
+## Custom Login Form
 Although SpringBoot provides a default login form for authentication, it's possible to define a custom login form.
 Steps:
 
@@ -71,7 +71,7 @@ The '@' symbol in the action represents the context path. This context path chan
 6. Define the controller implementing the method to load the login form. The route for the mapping has to be consistent with the route mentioned in the configuration file for the login form.
 [Login Controller class]()
 
-## <label id="error">Custom error messages on failed login</label>
+## Custom error messages on failed login
 
 If there's an error when trying to login the user will be redirected to the login page. Since a custom login page is being used, it won't show any error message on redirection but the empty login form. An error message has to be configured so it is returned along with the login form.
 When login fails the user will be redirected to the login form URL with an error parameter
@@ -82,12 +82,13 @@ In order to return a custom error message the form has to check if the "error" p
 
 [Custom login form - Error handling]()
 ```
+<!-- Check for login error-->
 <div th:if="${param.error}">
     <p class="color_error">Wrong combination of username and password</p>
 </div>
 ```
 
-## <label id="user-info">Retrieve username and roles</label>
+## Retrieve username and roles
 To retrieve the current logged in user information, you have to use spring security html tags. In order to do that we will add a new name service inside the html tag:
 
 ```
@@ -100,7 +101,7 @@ Roles: <span sec:authentication="principal.authorities"></span>
 ```
 [Homepage example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/resources/templates/home.html)
 
-## <label id="roles-restrict">Role based Authentication</label>
+## Role based Authentication
 Users can be prevented of accessing pages or resources based on their roles. In order to do that we have to update the security configuration adding the rules to follow:
 [Spring security configuration](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/security/DemoSecurityConfig.java)
 ```
@@ -114,3 +115,4 @@ Users can be prevented of accessing pages or resources based on their roles. In 
 The ** in /leaders/** represents every route that starts with '/leaders'  
 ```
 
+[SpringBoot Security](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/08-spring-boot-spring-mvc-security)
