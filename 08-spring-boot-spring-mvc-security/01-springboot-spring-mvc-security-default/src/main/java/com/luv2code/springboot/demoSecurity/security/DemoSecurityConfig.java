@@ -46,7 +46,11 @@ public class DemoSecurityConfig {
                         .requestMatchers("/systems/**").hasRole("ADMIN")
                         .anyRequest()
                         .authenticated())//All the requests have to be authenticated (be a logged in user)
-            .formLogin(form ->
+                //Custom forbidden access (403 error) page
+                .exceptionHandling(configurer->
+                        configurer.accessDeniedPage("/access-denied"))
+                //Custom login form configuration
+                .formLogin(form ->
                 form
                         .loginPage("/showLogin") //Route to load the custom login form
                         .loginProcessingUrl("/authenticateUser") //Route to process login information provided

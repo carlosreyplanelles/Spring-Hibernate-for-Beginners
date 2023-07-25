@@ -2,6 +2,7 @@
  ----
 
 # Spring Boot - Spring Security
+
 ## Basic Configuration
 ### In memory authentication
 1. Create a security configuration class 
@@ -69,9 +70,22 @@ The '@' symbol in the action represents the context path. This context path chan
 
 ```
 6. Define the controller implementing the method to load the login form. The route for the mapping has to be consistent with the route mentioned in the configuration file for the login form.
-[Login Controller class]()
+[Login Controller class](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/controller/LoginController.java)
 
-## Custom error messages on failed login
+### Configuring logout
+Springboot provides the required process to perform the logout with no extra coding required. We will have to add a new form tag using the action logout and is mandatory that the method used is POST.
+
+[Custom login form - Logout](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/resources/templates/login.html)
+```
+<!--Logout process call-->
+<form th:action="@{/logout}" method="POST">
+
+    <input type="submit" value="Logout"/>
+</form>
+```
+
+## Custom error handling
+### Custom error messages on failed login
 
 If there's an error when trying to login the user will be redirected to the login page. Since a custom login page is being used, it won't show any error message on redirection but the empty login form. An error message has to be configured so it is returned along with the login form.
 When login fails the user will be redirected to the login form URL with an error parameter
@@ -80,7 +94,7 @@ Example: https://www.luv2code.com/demo/login?error
 ```
 In order to return a custom error message the form has to check if the "error" parameter is part of the URL. To get this result the form must be modifiead and if the error message exist then the error message must be shown.
 
-[Custom login form - Error handling]()
+[Custom login form - Error handling](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/resources/templates/login.html)
 ```
 <!-- Check for login error-->
 <div th:if="${param.error}">
@@ -88,7 +102,19 @@ In order to return a custom error message the form has to check if the "error" p
 </div>
 ```
 
-## Retrieve username and roles
+### Custom error pages
+
+[Security configuration- custom forbidden error page](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/security/DemoSecurityConfig.java)
+```
+                ...
+                //Custom forbidden access (403 error) page
+                .exceptionHandling(configurer->
+                        configurer.accessDeniedPage("/access-denied"))
+                ...
+```
+
+## Roles
+### Retrieve username and roles
 To retrieve the current logged in user information, you have to use spring security html tags. In order to do that we will add a new name service inside the html tag:
 
 ```
@@ -101,7 +127,7 @@ Roles: <span sec:authentication="principal.authorities"></span>
 ```
 [Homepage example](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/resources/templates/home.html)
 
-## Role based Authentication
+### Role based Authentication
 Users can be prevented of accessing pages or resources based on their roles. In order to do that we have to update the security configuration adding the rules to follow:
 [Spring security configuration](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/security/DemoSecurityConfig.java)
 ```
@@ -115,4 +141,20 @@ Users can be prevented of accessing pages or resources based on their roles. In 
 The ** in /leaders/** represents every route that starts with '/leaders'  
 ```
 
-[SpringBoot Security](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/08-spring-boot-spring-mvc-security)
+### Filtering content based on permissions
+Roles can be used to filter the content showed. In order to do that we will have to use spring-security extra tags from thymeleaf:
+```
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+```
+After adding this tag we can use the authorize tag to filter the content based on the role of the user:
+```
+...
+<div sec:authorize="hasRole('MANAGER')">
+...
+<div sec:authorize="hasRole('ADMIN')">
+...
+```
+This instruction will cause that all the content contained in the divs won't be shown to any user with the wrong permissions. It won't even generate the empty elements or the code for them.
+[HomePage - Content filtering by Role](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/resources/templates/home.html)
+
+
