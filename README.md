@@ -1,6 +1,7 @@
 # Spring-Hibernate-for-Beginners
 
 https://www.udemy.com/course/spring-hibernate-tutorial/
+----
 
 # Spring Boot
 
@@ -21,24 +22,20 @@ Starters are groups of dependencies used to reduce the size of the pom file and 
 - **Spring Boot Logging:** Logging systems configuration based on the pakage or to the whole app.
   [Loggin official doc](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging)
 
-## INDEX
-
-1.  [Beans and injection](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core/README.md)
-
-6.  [Spring Security -Rest - Role based authentication]()
-
-<details>
-<summary>Server properties configuration through properties file</summary>
+### Server properties configuration through properties file
 
 Spring boot server can be configured through the properties file of the project
 [Common properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties)
 
-## Beans
-## Hibernate
-## REST
-## JPA Repositories
-## Spring Data Rest
-## Thymeleaf
+## INDEX
+
+1.  [Beans and injection](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/02-spring-boot-spring-core/README.md)
+2.  [Hibernate](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/03-spring-boot-hibernate-jpa-CRUD)
+3.  [Rest Services](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/04-spring-boot-%20rest-CRUD)
+4.  [Spring Security - Roles and authentication - Backend and DB Authentication](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/05-Spring-boot-rest-security)
+5.  [Thymeleaf - HelloWorld](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/07-Spring-boot-spring-mvc)
+6.  [Spring Security - Roles and authentication - Restrict Access and Custom Forms](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security)
+
 
 
 [Final Spring Boot Project - Employees Directory CRUD](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/tree/main/08-spring-boot-spring-mvc-crud)

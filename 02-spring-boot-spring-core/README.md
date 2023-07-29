@@ -1,4 +1,6 @@
   # Spring-Hibernate-for-Beginners
+  ----
+  # Spring Boot - Beans and injection
 
 https://www.udemy.com/course/spring-hibernate-tutorial/
 ____
@@ -7,7 +9,6 @@ ____
 - If there's one constructor the Autowired annotation is not required. 
 - If the the object injected have only one implementation the type is infered.
 
-Before going into this section let's answer the basic question. What is a bean in springboot?
 ```
 A bean is the objects that form the backbone of your application and that are managed by the Spring IoC container. 
 In simple terms an instance of an object in our app that is annotated properly(@component, @controller...). 

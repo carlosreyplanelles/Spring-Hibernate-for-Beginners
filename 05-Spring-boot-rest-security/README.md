@@ -1,4 +1,8 @@
-# Spring Security - Rest
+# Spring-Hibernate-for-Beginners
+ ----
+
+# Spring Security - backend Authentication configuration
+----
 
 [Security Reference Manual](https://docs.spring.io/spring-security/reference/)
 
