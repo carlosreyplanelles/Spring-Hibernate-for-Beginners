@@ -79,8 +79,6 @@ jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(
     "SELECT user_id, role FROM roles WHERE user_id=?");
 ```
 
-#### Registration Form
-
 
 ## Custom Login Form
 Although SpringBoot provides a default login form for authentication, it's possible to define a custom login form.
@@ -138,7 +136,7 @@ The '@' symbol in the action represents the context path. This context path chan
 6. Define the controller implementing the method to load the login form. The route for the mapping has to be consistent with the route mentioned in the configuration file for the login form.
 [Login Controller class](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/controller/LoginController.java)
 
-### Configuring logout
+## Configuring logout
 
 Springboot provides the required process to perform the logout with no extra coding required. We will have to indicate to the security configuration we are planning to perform this operation and add a new form tag using the action logout and is mandatory that the method used is POST.
 
@@ -168,6 +166,49 @@ When we use the out of the box logout implementation the user will be redirected
                                                     User logged out successfully.
                                                 </div>
 ```
+
+## Registration Form
+If we want to allow a user to register in our page a registration form needs to be defined along with some changes in our security config.
+
+For saving the users information we will use the following tables for authentication:
+[Registration SQL tables with sample data]()
+```
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` char(80) NOT NULL,
+  `enabled` tinyint NOT NULL,  
+  `first_name` varchar(64) NOT NULL,
+  `last_name` varchar(64) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+```
+1. Create [User]() and [Role]() class for the tables we have just created.
+2. Stablish the DB communication implementing a [UserDAO]() and a [Role DAO]()
+3. Add a [user service]() to manage the registration process through the DAOs created in the previous steps.
+4. Create a new [registration form]() that will be used by the new user to introduce the user info.
+4. Create the [registration controller]() to define the routes that will be used by the form to call the Service methods
+5. Add the registration routes to our [security configuration]() allowing every user to access so this routes are accessible (This step is required in order to make make this the registration routes visible for every user).
+```
+.requestMatchers("/register/**").permitAll()
+```
+6. Create a DaoAuthentication provider in in our security configuration to handle the authentication process and a PasswordEncrypter bean. 
+```
+DaoAuthenticationProvider is an AuthenticationProvider implementation that uses a UserDetailsService and PasswordEncoder to authenticate a username and password.
+```
+```
+PasswordEncrypter is used by the system to ecncrypt the new user information and to validate user requests on login.
+```
+
+[DaoAuthenticationProvider Doc](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/dao-authentication-provider.html)
+
 
 ## Custom error handling
 ### Custom error messages on failed login

@@ -1,11 +1,13 @@
 package com.luv2code.springboot.demoSecurity.security;
 
+import com.luv2code.springboot.demoSecurity.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -16,7 +18,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DemoSecurityConfig {
 
-    //JDBC Authentication
+    /*JDBC Authentication
     @Bean
     public UserDetailsManager userDetailsManager (DataSource dataSource){
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
@@ -29,10 +31,19 @@ public class DemoSecurityConfig {
                 "SELECT user_id, role FROM roles WHERE user_id=?");
         return jdbcUserDetailsManager;
     }
+     */
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(userService userService){
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(UserService userService) {
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userService); //set the custom user details service
+        auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
+        return auth;
     }
 
     //Custom Login Form
@@ -45,6 +56,7 @@ public class DemoSecurityConfig {
                         .requestMatchers("/").hasRole("EMPLOYEE")
                         .requestMatchers("/leaders/**").hasRole("MANAGER")
                         .requestMatchers("/systems/**").hasRole("ADMIN")
+                        .requestMatchers("/register/**").permitAll()
                         .anyRequest()
                         .authenticated())//All the requests have to be authenticated (be a logged in user)
                 //Custom forbidden access (403 error) page
@@ -54,15 +66,14 @@ public class DemoSecurityConfig {
                 .formLogin(form ->
                 form
                         .loginPage("/showLogin") //Route to load the custom login form
-                        .loginProcessingUrl("/authenticateUser") //Route to process login information provided
+                        .loginProcessingUrl("/authenticateUser") //Route to process login information provided. No implementation required (provided by spring)
                         .permitAll())// Login form is accessible to every user trying to access to the site
-                .logout(logout->logout.permitAll()
-                );
+                .logout(logout->logout.permitAll());
 
         return http.build();
     }
 
-    /*In memory Authentication
+    /*IN MEMORY AUTHENTICATION
     @Bean
     public InMemoryUserDetailsManager userDetailsManager(){
 
