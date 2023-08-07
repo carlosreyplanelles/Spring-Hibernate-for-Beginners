@@ -171,7 +171,7 @@ When we use the out of the box logout implementation the user will be redirected
 If we want to allow a user to register in our page a registration form needs to be defined along with some changes in our security config.
 
 For saving the users information we will use the following tables for authentication:
-[Registration SQL tables with sample data]()
+[Registration SQL tables with sample data](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/sql-scripts/02-setup-spring-security-demo-database-hibernate-bcrypt.sql)
 ```
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -190,12 +190,12 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`)
 )
 ```
-1. Create [User]() and [Role]() class for the tables we have just created.
-2. Stablish the DB communication implementing a [UserDAO]() and a [Role DAO]()
-3. Add a [user service]() to manage the registration process through the DAOs created in the previous steps.
-4. Create a new [registration form]() that will be used by the new user to introduce the user info.
-4. Create the [registration controller]() to define the routes that will be used by the form to call the Service methods
-5. Add the registration routes to our [security configuration]() allowing every user to access so this routes are accessible (This step is required in order to make make this the registration routes visible for every user).
+1. Create [User](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/entity/User.java) and [Role](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/entity/Role.java) class for the tables we have just created.
+2. Stablish the DB communication implementing a [UserDAO](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/dao/UserDaoImpl.java) and a [Role DAO](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/dao/RoleDaoImpl.java)
+3. Add a [user service](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/service/UserServiceImpl.java) to manage the registration process through the DAOs created in the previous steps.
+4. Create a new [registration form](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/resources/templates/register/registration-form.html) that will be used by the new user to introduce the user info.
+4. Create the [registration controller](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/controller/RegistrationController.java) to define the routes that will be used by the form to call the Service methods
+5. Add the registration routes to our [security configuration](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/08-spring-boot-spring-mvc-security/01-springboot-spring-mvc-security-default/src/main/java/com/luv2code/springboot/demoSecurity/security/DemoSecurityConfig.java) allowing every user to access so this routes are accessible (This step is required in order to make make this the registration routes visible for every user).
 ```
 .requestMatchers("/register/**").permitAll()
 ```
