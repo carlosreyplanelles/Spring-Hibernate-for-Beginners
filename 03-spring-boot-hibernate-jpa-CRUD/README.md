@@ -100,11 +100,23 @@ FOr this examples you will have to create the dao entity and services following 
 | `@Transient`        | Marks a field as not persistent, i.e., not to be stored in the database.                               |
 | `@Embedded`         | Indicates that a field is an embedded object and its attributes should be persisted as part of the owning entity. |
 
+When defining a relationship between two entities we can define the cascade type (or types). This will affect to the behavior when any of the entities in the relationship is modified. The cascade methods are:
+| Cascade Option         | Description                                                                                                                                                                                                                                  |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `CascadeType.ALL`      | All operations (INSERT, UPDATE, DELETE) performed on the parent entity will be cascaded to the associated child entities.                                                                                                                  |
+| `CascadeType.PERSIST`  | The `persist` operation (INSERT) performed on the parent entity will be cascaded to the associated child entities.                                                                                                                         |
+| `CascadeType.MERGE`    | The `merge` operation (UPDATE) performed on the parent entity will be cascaded to the associated child entities.                                                                                                                           |
+| `CascadeType.REMOVE`   | The `remove` operation (DELETE) performed on the parent entity will be cascaded to the associated child entities.                                                                                                                          |
+| `CascadeType.REFRESH`  | The `refresh` operation will propagate from the parent entity to the child entities, effectively refreshing their state to match that of the parent entity.                                                                             |
+| `CascadeType.DETACH`   | The `detach` operation will detach the parent entity along with its associated child entities from the current persistence context. This means they will no longer be managed by Hibernate's session.                                  |
+| `CascadeType.ALL_DELETE_ORPHAN` | This cascade type is specific to Hibernate. It is similar to `CascadeType.ALL`, but it also deletes orphaned child entities that are no longer associated with a parent entity.                                      |
+| `CascadeType.REPLICATE` | The `replicate` operation is specific to Hibernate. It propagates from the parent entity to the child entities, creating new instances in the database that correspond to the state of the parent and its children.                        |
+
 
 ### One to One
-We will use the following database schema for this example that can be create with the following [script]():
-![Schema]()
-After following the process a new field will be added to the [instructor entity]() to represent the relation between both entitities.
+We will use the following database schema for this example that can be create with the following [script](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/03-spring-boot-hibernate-jpa-CRUD/00-jpa-advanced-mappings-database-scripts/hb-01-one-to-one-uni/create-db.sql):
+![Schema](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/images/Screenshot_1.png)
+After following the process a new field will be added to the [instructor entity](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/03-spring-boot-hibernate-jpa-CRUD/02-jpa-one-to-one-uni/src/main/java/com/example/cruddemo/entity/Instructor.java) to represent the relation between both entitities.
 ```
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="instructor_detail_id")
@@ -113,6 +125,14 @@ After following the process a new field will be added to the [instructor entity]
 We will define a new private field of related entity (InstructorDetail) in our instructor. When performing a persist operation, Springboot will save the IntructorDetail along with the instructor.
 ```
 
+A bidirectional relationship  can be defined between entities without modifying the database. To do that, we will define a property in the entity where we want to define the relationship and indicate the field on the parent entity to correlate both. 
+I.e: In order to define a bidirectional relationship between [Instructor]() and [InstructorDetail](), we will hace to create an Instructor property in our InstructorDetail and indicate the field used to map the relationship in the instructor table
+```
+  @OneToOne(
+            cascade={CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH},
+            mappedBy = "instructorDetail")
+    private Instructor instructor;
+```
 
 ### One to many/Many to one
 ### Many to Many
