@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/03-spring-boot-hibernate-jpa-CRUD.iml" filepath="$PROJECT_DIR$/.idea/03-spring-boot-hibernate-jpa-CRUD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-cruddemo-student/cruddemo.iml" filepath="$PROJECT_DIR$/01-cruddemo-student/cruddemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-jpa-one-to-one-bi/cruddemo (1) (com.example).iml" filepath="$PROJECT_DIR$/02-jpa-one-to-one-bi/cruddemo (1) (com.example).iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-jpa-one-to-one-uni/cruddemo (2) (com.example).iml" filepath="$PROJECT_DIR$/02-jpa-one-to-one-uni/cruddemo (2) (com.example).iml" />
+    </modules>
+  </component>
+</project>

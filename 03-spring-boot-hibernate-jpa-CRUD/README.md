@@ -126,7 +126,7 @@ We will define a new private field of related entity (InstructorDetail) in our i
 ```
 
 A bidirectional relationship  can be defined between entities without modifying the database. To do that, we will define a property in the entity where we want to define the relationship and indicate the field on the parent entity to correlate both. 
-I.e: In order to define a bidirectional relationship between [Instructor]() and [InstructorDetail](), we will hace to create an Instructor property in our InstructorDetail and indicate the field used to map the relationship in the instructor table
+I.e: In order to define a bidirectional relationship between [Instructor]() and [InstructorDetail](), we will hace to create an Instructor property in our InstructorDetail and indicate the field used to map the relationship in the instructor table.
 ```
   @OneToOne(
             cascade={CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH},
@@ -134,7 +134,97 @@ I.e: In order to define a bidirectional relationship between [Instructor]() and 
     private Instructor instructor;
 ```
 
+[One-to-One project]()
+
 ### One to many/Many to one
+The following database schema  will be used as an example for One to Many relationship this example that can be create with the following [script](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/03-spring-boot-hibernate-jpa-CRUD/00-jpa-advanced-mappings-database-scripts/hb-03-one-to-many/create-db.sql):
+![Schema](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/images/instructor-course-one-to-many.png)
+The implementation have to meet this requirements:
+- Relationship must be bi-directional
+- Deleting a course shouldn't trigger the deletion of the instructor.
+- Deleting an instructor should also delete all the related courses.
+Steps:
+
+1. Create the database schema using this section [script](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/03-spring-boot-hibernate-jpa-CRUD/00-jpa-advanced-mappings-database-scripts/hb-03-one-to-many/create-db.sql).
+
+2. Create a new entity for the [Course](). We will have to add an Instructor private property to represent the many to one relationship (many courses can be taught by one Instructor):
+
+```
+@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name="instructor_id")
+    private Instructor instructor;
+```
+
+3. After that we will update the [instructor]()  to represent the one to many relationship (one instructor can teach many courses)
+```
+@OneToMany(mappedBy="instructor",
+    cascade={CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Course> courses;
+```
+We will also add some methods to assign the courses to the Instructors and create the Bi-directional relationship.
+```
+public void add (Course newCourse){
+        if(courses == null){
+            courses = new ArrayList<>();
+        }
+        //Bi-directional relationship definition
+        courses.add(newCourse);
+        newCourse.setInstructor(this);
+    }
+```
+
+[One-to-many/Many-to-one Project]()
+
+
+
 ### Many to Many
+
+![Schema](https://github.com/carlosreyplanelles/Spring-Hibernate-for-Beginners/blob/main/images/ManyToMany.png)
+
+As you can see in the schema, to define a many to many relationship (students can attend many courses, courses can be attended by many students) we will use a join table to represent the relationship betwen both entities. This table will define the relation between the entities through the id values.
+To define this we will use the following annotations:
+| Annotation          | Description                                                                                              |
+|---------------------|----------------------------------------------------------------------------------------------------------|
+| `@ManyToMany`       | Defines a many-to-many relationship between two entities.                                              |
+| `@JoinColumn`       | Specifies the foreign key column used in a relationship.                                               |
+| `@JoinTable`        | Configures the details of a many-to-many relationship and the join table.                              |
+
+We will create an [Student]() entity and update the [Course]() entity to include a list of students. In this classes we will create auxiliary methods to add students to courses (Course entity) and courses to students (student entity)
+In order to set the relationship between entites we will have to indicate how each of the entitities relate with the intermediate table. I.e: [Student entity]()
+```
+@ManyToMany(cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="course_student",
+    joinColumns = @JoinColumn(name="student_id"),
+    inverseJoinColumns = @JoinColumn(name="course_id"))
+    private List<Course> courses;
+```
+
+
+[Many-to-Many project]()
+
+## Eager loading vs Lazy loading
+ - **Eager**:  When retrieving an entity from the database it retrieves the entity requested with all the related entities information.
+ - **Lazy**: It retrieves the requested entity information. For any related entity information it will be retrieved when required on request. 
+
+Eager loading can cause performance issues when there's too many relationed entities (ie: retrieve all the students for a all of the courses for a specific instructor). Because of that, lazy loading is recommended for most of the cases.
+If lazy loading is being used, we need to make sure that the session is open . In order to do that we will have to make a new sql request to the database to retrieve the new data.
+
+If a specific type of fetching is nmot provided in the relationship annotation we will it will apply the default fetching value. This default fetching value will depend on the type of relationship between entities:
+| Relationship Type | Annotation(s) | Default Fetch Type | Default Loading Method |
+|-------------------|---------------|-------------------|------------------------|
+| `One-to-One`        | @OneToOne     | EAGER             | Load with parent       |
+| `One-to-Many`       | @OneToMany    | LAZY              | Load when accessed     |
+| `Many-to-One`       | @ManyToOne    | EAGER             | Load with parent       |
+| `Many-to-Many`      | @ManyToMany   | LAZY              | Load when accessed     |
+
+Additionally, eager loading can be used on specific functions without changing the default fetching type by using JOIN FETCH sql request to retrieve the objects information.
+
+```
+TypedQuery<Instructor> query = entityManager.createQuery( "SELECT i FROM Instructor i JOIN FETCH i.courses WHERE i.id = :instructorId", Instructor.class);
+
+This request will retrieve the information of the courses related along with the instructor information. Retrieving the information through this function we will be using the eager loading methid for the instructor information. 
+```
+
+
 
 
